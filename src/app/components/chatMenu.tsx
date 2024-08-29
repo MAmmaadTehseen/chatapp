@@ -1,12 +1,8 @@
+import React from 'react'
 import Image from 'next/image'
 import { MdDone } from "react-icons/md";
 import { MdDoneAll } from "react-icons/md";
-
-import React from 'react'
-import {
-    EditOutlined,
-    MenuOutlined,
-} from '@ant-design/icons';
+import { EditOutlined, MenuOutlined } from '@ant-design/icons';
 import { Avatar } from 'antd';
 import { IconContext } from 'react-icons';
 const chats = [
@@ -43,7 +39,7 @@ const chats = [
         user: "abdul sattar",
         userID: "004",
         lastMessage: "Woodpeeker",
-        timestamp: "2024-08-27T12:00:36.618+00:00",
+        timestamp: "2024-08-28T12:00:36.618+00:00",
         image: "https://ix-www.imgix.net/case-study/unsplash/unsplash02.jpg?ixlib=js-3.8.0&auto=compress%2Cformat&w=1446",
         status: "read",
 
@@ -86,10 +82,10 @@ export default function chatMenu() {
             </header>
             <main>
                 {chats.length > 0 &&
-                    chats.sort((a, b) => (new Date() - new Date(a.timestamp)) - (new Date() - new Date(b.timestamp))).map(chat => {
-                        const getDateOrDay = (timestamp) => {
+                    chats.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()).map(chat => {
+                        const getDateOrDay = (timestamp: string) => {
                             const now = new Date(timestamp);
-                            const hours = new Date() - now;
+                            const hours = new Date().getTime() - now.getTime();
                             console.log(now.getFullYear())
                             if (Math.abs(hours / 24 / 3600 / 1000) < 1 && now.getDate() === new Date().getDate() && now.getMonth() === new Date().getMonth() && now.getFullYear() === new Date().getFullYear()) {
                                 return now.toLocaleTimeString(); // Returns the day of the week
@@ -104,8 +100,8 @@ export default function chatMenu() {
                                 <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }} src={chat.image && <img src={chat.image} />} alt={chat.user[0].toUpperCase()} />
                                 <div className='ml-4'>
                                     <div className='flex justify-stretch'>
-                                        <h2 className='text-sm text-gray-400 font-bold'>{chat.user}</h2>
-                                        <p className='text-xs text-gray-500 p-1'>{getDateOrDay(chat.timestamp)}</p>
+                                        <h2 className='text-sm text-gray-200 font-bold'>{chat.user}</h2>
+                                        <p className='text-xs text-gray-300 p-1'>{getDateOrDay(chat.timestamp)}</p>
                                     </div>
                                     <div className={'flex flex-row justify-start'}>
                                         <div className={`p-1 `}>{chat.status === 'sent' ? <MdDone color="white" /> : chat.status === 'delivered' ? <MdDoneAll color="white" /> : chat.status === 'read' ? <MdDoneAll color="blue" /> : ""}</div>
