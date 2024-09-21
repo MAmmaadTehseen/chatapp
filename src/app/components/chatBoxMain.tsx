@@ -13,9 +13,24 @@ export default function chatBoxMain(props: any) {
 
                     return (
                         <div key={msg.id}>
-                            <div className={`  border border-green-900 rounded-lg w-fit px-1 m-0.5 mx-2  ${msg.status === "recived" ? "bg-gray-500" : "bg-green-600"}  `}><div className=''> {msg.text}</div>
-                                <div className='px-1 flex justify-end items-end'>{msg.status === 'sent' ? <MdDone color="white" /> : msg.status === 'delivered' ? <MdDoneAll color="white" /> : msg.status === 'read' ? <MdDoneAll color="blue" /> : ""}</div>
-                            </div>
+                            {
+                                msg.status != "recived" &&
+                                <div className='flex justify-end '>
+                                    <div className={`flex border border-green-900 rounded-lg w-fit px-1 m-0.5 mx-2  ${msg.status === "recived" ? "bg-gray-500" : "bg-green-900"}  `}>
+                                        <div className=''> {msg.text}</div>
+                                        <div className='px-1 flex justify-end items-end'>{msg.status === 'sent' ? <MdDone color="white" /> : msg.status === 'delivered' ? <MdDoneAll color="white" /> : msg.status === 'read' ? <MdDoneAll color="blue" /> : ""}</div>
+                                    </div>
+                                </div>
+                            }
+                            {
+                                msg.status == "recived" &&
+                                <div className='flex justify-start '>
+                                    <div className={` border border-green-900 rounded-lg w-fit px-1 m-0.5 mx-2  ${msg.status === "recived" ? "bg-gray-500" : "bg-green-600"}  `}>
+                                        <div className=''> {msg.text}</div>
+                                        <div className='px-1 flex justify-end items-end'>{msg.status === 'sent' ? <MdDone color="white" /> : msg.status === 'delivered' ? <MdDoneAll color="white" /> : msg.status === 'read' ? <MdDoneAll color="blue" /> : ""}</div>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     )
                 })

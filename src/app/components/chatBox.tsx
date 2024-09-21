@@ -76,7 +76,7 @@ export default function chatBox() {
             <div className=''>
                 <ChatBoxhead user={user} />
             </div>
-            <div className='bg-emerald-800 grow'>
+            <div className='bg-slate-700 grow'>
                 <ChatBoxMain msg={msg} />
             </div>
             <div >
