@@ -7,7 +7,7 @@ import { Avatar } from 'antd';
 import { IconContext } from 'react-icons';
 const chats = [
     {
-        user: "ammad khan",
+        user: "Ammad khan",
         userID: "001",
         lastMessage: "hi there",
         timestamp: "2024-08-15T16:25:36.618+00:00",
@@ -17,7 +17,7 @@ const chats = [
 
     },
     {
-        user: "moazzam ali",
+        user: "Moazzam ali",
         userID: "002",
         lastMessage: "done",
         timestamp: "2023-08-16T16:25:36.618+00:00",
@@ -27,7 +27,7 @@ const chats = [
 
     },
     {
-        user: "zaid bin naeem",
+        user: "Zaid bin naeem",
         userID: "003",
         lastMessage: "ok i will be there also before coming contact me al well , in case i forget",
         timestamp: "2024-07-16T16:25:36.618+00:00",
@@ -36,7 +36,7 @@ const chats = [
 
     },
     {
-        user: "abdul sattar",
+        user: "Abdul sattar",
         userID: "004",
         lastMessage: "Woodpeeker",
         timestamp: "2024-08-28T12:00:36.618+00:00",
@@ -45,7 +45,7 @@ const chats = [
 
     },
     {
-        user: "namatullah",
+        user: "Namatullah",
         userID: "005",
         lastMessage: "neend ari ha",
         timestamp: "2024-08-27T06:25:36.618+00:00",

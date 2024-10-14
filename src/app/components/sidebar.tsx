@@ -31,7 +31,7 @@ const Sidebar: React.FC = () => {
         { key: '3', icon: <PhoneOutlined />, label: 'Calls' },
         { key: '4', icon: <ContainerOutlined />, label: 'Status' },
         {
-            key: '5', icon: <BsAlexa />
+            key: '5', icon: <OpenAIOutlined />
             , label: 'Meta AI'
         },
 
