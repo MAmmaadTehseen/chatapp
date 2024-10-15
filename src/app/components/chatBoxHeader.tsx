@@ -15,7 +15,7 @@ export default function chatBoxhead(props: any) {
                 {user[0].name}
             </div>
             <div className='flex'>
-                <div className='flex  my-4 h-10  bg-slate-700 rounded-xl p-1 border border-gray-600'>
+                <div className='flex  my-4 h-10  bg-blue-900 rounded-xl p-1 border border-blue-600'>
                     <button> <CiVideoOn className=' mx-2 text-3xl text-white' /></button>
                     <div className='border mx-2 border-l-2'></div>
                     <button><IoCallOutline className=' text-3xl text-white' /></button>

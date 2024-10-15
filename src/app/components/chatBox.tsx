@@ -41,7 +41,7 @@ const msg = [
     },
     {
         id: 7,
-        text: 'hi sdfcsd swdcsd sdvvsds s sdsdfcsdfsdfsdfsdfsfsdfsfsd sfdsdfsfsfsfs svsdfvsdfsfsfsf svsdvsf',
+        text: 'hi sdf csd swd csd sdv vsds s sdsd fcs dfs dfsdf sdfs fsd fsfsd sfd sdfsfs fsfs svsdfvsdfsfsfsf svsdvsf',
         status: 'recived',
         timestamp: new Date(),
     },
@@ -59,7 +59,7 @@ const msg = [
     },
     {
         id: 10,
-        text: 'hi lorem da/dkadkaldkadlkas;sdka ad;adma;ld;lad;ald;lm',
+        text: 'hi lorem da/dk ad kald kad lkas; sdk ate rt ete ad;adma;ld;lad;ald;lm',
         status: 'sent',
         timestamp: new Date(),
     }
@@ -72,11 +72,11 @@ const user = [{
 
 export default function chatBox() {
     return (
-        <div className='bg-slate-800 h-screen flex flex-col justify-between'>
+        <div className='bg-blue-950 h-screen flex flex-col justify-between'>
             <div className=''>
                 <ChatBoxhead user={user} />
             </div>
-            <div className='bg-slate-700 grow'>
+            <div className='bg-blue-500 grow'>
                 <ChatBoxMain msg={msg} />
             </div>
             <div >

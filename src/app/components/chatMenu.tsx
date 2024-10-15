@@ -65,7 +65,7 @@ const chats = [
 ]
 export default function chatMenu() {
     return (
-        <div className='w-80 bg-gray-900 h-screen'>
+        <div className='w-full sm:w-80 bg-blue-900 h-screen'>
 
             <header className='flex justify-between'>
                 <div>
@@ -96,12 +96,13 @@ export default function chatMenu() {
 
 
                         return (
-                            <div key={chat.userID} className='flex items-center p-4 hover:bg-gray-800'>
+                            <div key={chat.userID} className='flex items-center p-4 w-full hover:bg-gray-800  border-b-gray-300 m-2 min-w-72 '>
                                 <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }} src={chat.image && <img src={chat.image} />} alt={chat.user[0].toUpperCase()} />
-                                <div className='ml-4'>
-                                    <div className='flex justify-stretch'>
+                                <div className='ml-4  w-full sm:w-80 '>
+                                    <div className='flex  justify-between '>
                                         <h2 className='text-sm text-gray-200 font-bold'>{chat.user}</h2>
-                                        <p className='text-xs text-gray-300 p-1'>{getDateOrDay(chat.timestamp)}</p>
+                                        
+                                        <p className='text-xs  text-gray-300 p-1 mx-3 '>{getDateOrDay(chat.timestamp)}</p>
                                     </div>
                                     <div className={'flex flex-row justify-start'}>
                                         <div className={`p-1 `}>{chat.status === 'sent' ? <MdDone color="white" /> : chat.status === 'delivered' ? <MdDoneAll color="white" /> : chat.status === 'read' ? <MdDoneAll color="blue" /> : ""}</div>
