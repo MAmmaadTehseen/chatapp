@@ -54,6 +54,87 @@ const chats = [
 
     },
     {
+        user: "Namatullah",
+        userID: "005",
+        lastMessage: "neend ari ha",
+        timestamp: "2024-08-27T06:25:36.618+00:00",
+        image: "https://ix-www.imgix.net/case-study/unsplash/woman-hat.jpg?ixlib=js-3.8.0&w=400&auto=compress%2Cformat&dpr=1&q=75",
+        status: "sent",
+
+    },
+    {
+        user: "Namatullah",
+        userID: "005",
+        lastMessage: "neend ari ha",
+        timestamp: "2024-08-27T06:25:36.618+00:00",
+        image: "https://ix-www.imgix.net/case-study/unsplash/woman-hat.jpg?ixlib=js-3.8.0&w=400&auto=compress%2Cformat&dpr=1&q=75",
+        status: "sent",
+
+    },
+    {
+        user: "Namatullah",
+        userID: "005",
+        lastMessage: "neend ari ha",
+        timestamp: "2024-08-27T06:25:36.618+00:00",
+        image: "https://ix-www.imgix.net/case-study/unsplash/woman-hat.jpg?ixlib=js-3.8.0&w=400&auto=compress%2Cformat&dpr=1&q=75",
+        status: "sent",
+
+    },
+    {
+        user: "Namatullah",
+        userID: "005",
+        lastMessage: "neend ari ha",
+        timestamp: "2024-08-27T06:25:36.618+00:00",
+        image: "https://ix-www.imgix.net/case-study/unsplash/woman-hat.jpg?ixlib=js-3.8.0&w=400&auto=compress%2Cformat&dpr=1&q=75",
+        status: "sent",
+
+    },
+    {
+        user: "Namatullah",
+        userID: "005",
+        lastMessage: "neend ari ha",
+        timestamp: "2024-08-27T06:25:36.618+00:00",
+        image: "https://ix-www.imgix.net/case-study/unsplash/woman-hat.jpg?ixlib=js-3.8.0&w=400&auto=compress%2Cformat&dpr=1&q=75",
+        status: "sent",
+
+    },
+    {
+        user: "Namatullah",
+        userID: "005",
+        lastMessage: "neend ari ha",
+        timestamp: "2024-08-27T06:25:36.618+00:00",
+        image: "https://ix-www.imgix.net/case-study/unsplash/woman-hat.jpg?ixlib=js-3.8.0&w=400&auto=compress%2Cformat&dpr=1&q=75",
+        status: "sent",
+
+    },
+    {
+        user: "Namatullah",
+        userID: "005",
+        lastMessage: "neend ari ha",
+        timestamp: "2024-08-27T06:25:36.618+00:00",
+        image: "https://ix-www.imgix.net/case-study/unsplash/woman-hat.jpg?ixlib=js-3.8.0&w=400&auto=compress%2Cformat&dpr=1&q=75",
+        status: "sent",
+
+    },
+    {
+        user: "Namatullah",
+        userID: "005",
+        lastMessage: "neend ari ha",
+        timestamp: "2024-08-27T06:25:36.618+00:00",
+        image: "https://ix-www.imgix.net/case-study/unsplash/woman-hat.jpg?ixlib=js-3.8.0&w=400&auto=compress%2Cformat&dpr=1&q=75",
+        status: "sent",
+
+    },
+    {
+        user: "Namatullah",
+        userID: "005",
+        lastMessage: "neend ari ha",
+        timestamp: "2024-08-27T06:25:36.618+00:00",
+        image: "https://ix-www.imgix.net/case-study/unsplash/woman-hat.jpg?ixlib=js-3.8.0&w=400&auto=compress%2Cformat&dpr=1&q=75",
+        status: "sent",
+
+    },
+    {
         user: "m mohsin",
         userID: "006",
         lastMessage: "academy jara hu",
@@ -65,7 +146,7 @@ const chats = [
 ]
 export default function chatMenu() {
     return (
-        <div className='w-full sm:w-80 bg-blue-900 h-screen'>
+        <div className='w-full overflow-scroll sm:w-80 bg-blue-900 h-screen'>
 
             <header className='flex justify-between'>
                 <div>
