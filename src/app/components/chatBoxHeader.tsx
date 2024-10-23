@@ -7,11 +7,11 @@ export default function chatBoxhead(props: any) {
     const { user } = props;
     console.log(user)
     return (
-        <div className='h-16 flex justify-between'>
+        <div className='h-16 flex justify-between min-w-80'>
             <div className='p-2'>
                 <Avatar src={user[0].image} size={50} />
             </div>
-            <div className='text-white flex m-3 font-bold text-2xl justify-start grow'>
+            <div className='text-white flex m-3 font-bold text-2xl justify-start'>
                 {user[0].name}
             </div>
             <div className='flex'>

@@ -119,7 +119,7 @@ const chats = [
     {
         user: "Namatullah",
         userID: "005",
-        lastMessage: "neend ari ha",
+        lastMessage: "negdsf sfsdfs fdsf sdf d fsdf sf  fsdfsdf s fsdfsdf sdf sf sfsf fend ari ha",
         timestamp: "2024-08-27T06:25:36.618+00:00",
         image: "https://ix-www.imgix.net/case-study/unsplash/woman-hat.jpg?ixlib=js-3.8.0&w=400&auto=compress%2Cformat&dpr=1&q=75",
         status: "sent",
@@ -146,7 +146,7 @@ const chats = [
 ]
 export default function chatMenu() {
     return (
-        <div className='w-full overflow-scroll sm:w-80 bg-blue-900 h-screen'>
+        <div className='w-full overflow-scroll pr-2 sm:w-80 bg-blue-900 h-screen min-w-80'>
 
             <header className='flex justify-between'>
                 <div>
@@ -177,17 +177,17 @@ export default function chatMenu() {
 
 
                         return (
-                            <div key={chat.userID} className='flex items-center p-4 w-full hover:bg-gray-800  border-b-gray-300 m-2 min-w-72 '>
+                            <div key={chat.userID} className='flex items-center p-2 pr-4    w-full hover:bg-gray-800  border-b-gray-300 m-2 min-w-72 '>
                                 <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }} src={chat.image && <img src={chat.image} />} alt={chat.user[0].toUpperCase()} />
                                 <div className='ml-4  w-full sm:w-80 '>
                                     <div className='flex  justify-between '>
                                         <h2 className='text-sm text-gray-200 font-bold'>{chat.user}</h2>
-                                        
+
                                         <p className='text-xs  text-gray-300 p-1 mx-3 '>{getDateOrDay(chat.timestamp)}</p>
                                     </div>
                                     <div className={'flex flex-row justify-start'}>
                                         <div className={`p-1 `}>{chat.status === 'sent' ? <MdDone color="white" /> : chat.status === 'delivered' ? <MdDoneAll color="white" /> : chat.status === 'read' ? <MdDoneAll color="blue" /> : ""}</div>
-                                        <p className='text-sm text-gray-500'>{chat.lastMessage.length > 28 ? chat.lastMessage.slice(0, 35) + "...." : chat.lastMessage}</p>
+                                        <p className='text-sm  text-gray-500 line-clamp-1 pr-6'>{chat.lastMessage}</p>
                                     </div>
                                 </div>
                             </div>)

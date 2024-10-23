@@ -4,7 +4,7 @@ import ChatBoxMain from './chatBoxMain'
 import ChatBoxFooter from './chatBoxFooter'
 const msg = [
     {
-        id: 1,
+        id: 114,
         text: 'hi sadfsadasdsadsad adscsadasd',
         status: 'recived',
         timestamp: new Date(),
@@ -72,7 +72,7 @@ const user = [{
 
 export default function chatBox() {
     return (
-        <div className='bg-blue-950 h-screen flex flex-col justify-between'>
+        <div className='bg-blue-950 pl-10 h-screen flex flex-col justify-between'>
             <div className=''>
                 <ChatBoxhead user={user} />
             </div>

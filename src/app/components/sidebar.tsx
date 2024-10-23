@@ -1,76 +1,133 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsAlexa } from "react-icons/bs";
+import { useSession } from "next-auth/react";
+
 import {
     ContainerOutlined,
     MenuUnfoldOutlined,
     MessageOutlined,
-    OpenAIOutlined,
-    InboxOutlined,
     PhoneOutlined,
-    StarOutlined,
     SettingOutlined,
     UserOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Button, Menu } from 'antd';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 
 type MenuItem = Required<MenuProps>['items'][number];
 
 
 
 const Sidebar: React.FC = () => {
-    const [collapsed, setCollapsed] = useState(true);
 
-    const toggleCollapsed = () => {
-        setCollapsed(!collapsed);
-    };
+    const router = useRouter()
+    const [key, setKey] = useState("1");
+    const { status } = useSession();
+
+    const pathname = usePathname();
+    const searchParams = useSearchParams()
+    useEffect(() => {
+    if(pathname=='/'){
+        setKey('1')
+    }
+   else if(pathname=='/call'){
+        setKey('2')
+    }
+   else if(pathname=='/status'){
+        setKey('3')
+    }
+   else if(pathname=='/setting'){
+        setKey('5')
+    }
+   else if(pathname=='/profile'){
+        setKey('6')
+    }
+    
+     
+    }, [pathname])
+    
     const items1: MenuItem[] = [
-        { key: '1', icon: <MenuUnfoldOutlined />, label: '', onClick: () => toggleCollapsed() },
-        { key: '2', icon: <MessageOutlined />, label: 'Chats' },
-        { key: '3', icon: <PhoneOutlined />, label: 'Calls' },
-        { key: '4', icon: <ContainerOutlined />, label: 'Status' },
+
         {
-            key: '5', icon: <OpenAIOutlined />
-            , label: 'Meta AI'
+            key: '1', icon: <MessageOutlined />, label: 'Chats', onClick: () => {
+                setKey("1")
+                router.push("/")
+            }
         },
+        {
+            key: '2', icon: <PhoneOutlined />, label: 'Calls', onClick: () => {
+                setKey("2")
+                router.push("/call")
+                console.log(pathname)
+            }
+        },
+        {
+            key: '3', icon: <ContainerOutlined />, label: 'Status', onClick: () => {
+                setKey("3")
+                router.push("/status")
+                console.log(pathname)
+            }
+        },
+
 
     ];
     const items2: MenuItem[] = [
-        { key: '6', icon: <StarOutlined />, label: 'Starred messages' },
-        { key: '7', icon: <InboxOutlined />, label: 'Archived chats' },
-        { key: '8', icon: <SettingOutlined />, label: 'Settings' },
-        { key: '9', icon: <UserOutlined />, label: 'Profile' },
+
+        {
+            key: '5', icon: <SettingOutlined />, label: 'Settings', onClick: () => {
+                setKey("5")
+                router.push("/setting")
+            }
+        },
+        {
+            key: '6', icon: <UserOutlined />, label: 'Profile', onClick: () => {
+                setKey("6")
+                router.push("/profile")
+            }
+        },
 
 
     ];
-    return (
-        <div className='h-screen flex flex-col justify-between   ' style={{ background: "#001529", maxWidth: 180 }} >
-            <div >
+    if (status != "authenticated") {
+        return (
+            <>
+            </>
+        )
+    }
+    else {
 
-                <Menu
-                    defaultSelectedKeys={['2']}
-                    mode="inline"
-                    theme="dark"
-                    inlineCollapsed={collapsed}
-                    items={items1}
-                />
+
+        return (
+            <div className='h-screen flex w-10 flex-col justify-between   ' style={{ background: "black", maxWidth: 180 }} >
+                <div >
+
+                    <Menu
+                        selectedKeys={[key]}
+                        mode="inline"
+                        theme="dark"
+                        items={items1}
+                        inlineCollapsed={true}
+                        style={{ backgroundColor: "black", width: "40px" }}
+                    />
+                </div>
+
+
+                <div >
+
+                    <Menu
+                        selectedKeys={[key]}
+                        defaultOpenKeys={['sub1']}
+                        mode="inline"
+                        theme="dark"
+                        inlineCollapsed={true}
+                        items={items2}
+                        style={{ backgroundColor: "black", width: "40px" }}
+                    />
+                </div>
             </div>
-
-
-            <div >
-
-                <Menu
-                    defaultSelectedKeys={['1']}
-                    defaultOpenKeys={['sub1']}
-                    mode="inline"
-                    theme="dark"
-                    inlineCollapsed={collapsed}
-                    items={items2}
-                />
-            </div>
-        </div>
-    );
+        );
+    }
 };
 
 export default Sidebar;
