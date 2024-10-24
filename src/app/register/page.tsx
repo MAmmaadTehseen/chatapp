@@ -3,12 +3,25 @@ import { FormEvent, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { register } from "@/actions/register";
+import { useSession } from "next-auth/react";
+import Loading from "../loading";
 
 
 export default function Register() {
+    const ref = useRef<HTMLFormElement>(null);
     const [error, setError] = useState<string>();
     const router = useRouter();
-    const ref = useRef<HTMLFormElement>(null);
+    const { status } = useSession();
+
+    if (status === "loading") {
+        return (
+            <Loading />
+        )
+    }
+    else if (status === "authenticated") {
+       return router.push("/")
+    }
+
 
     const handleSubmit = async (formData: FormData) => {
         const r = await register({

@@ -7,7 +7,7 @@ import { signOut } from "next-auth/react";
 const Page = () => {
     const router = useRouter()
     return (
-        <div className="grid place-items-center h-screen  text-red-600 text-9xl">
+        <div className="grid ml-10 place-items-center h-screen  text-red-600 text-9xl">
             <div>
                 <button
                     className="border border-solid border-black rounded"

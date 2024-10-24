@@ -32,10 +32,13 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  pages: {
+    signIn: "/"
+  },
   callbacks: {
     session: async ({ session, token }) => {
       if (session?.user) {
-        session.user.id = token.sub;
+        // session.user.id = token.sub;
       }
       return session;
     },

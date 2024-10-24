@@ -3,7 +3,6 @@ import { MdDone } from "react-icons/md";
 import { MdDoneAll } from "react-icons/md";
 export default function chatBoxMain(props: any) {
     let { msg } = props
-    console.log(msg)
     return (
 
 

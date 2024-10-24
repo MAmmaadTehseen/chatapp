@@ -5,6 +5,7 @@ import ChatBox from "./components/chatBox";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Loading from "./loading";
 
 export default function Home() {
   const { status } = useSession();
@@ -26,7 +27,7 @@ export default function Home() {
       )
     } else if (status === "loading") {
       return (
-        <span className="text-[#888] text-sm mt-7">Loading...</span>
+        <Loading/>
       )
     } else {
       return (

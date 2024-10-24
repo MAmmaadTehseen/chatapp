@@ -10,11 +10,12 @@ export default withAuth(
     } = req;
 
     if (pathname.startsWith("/login") && token) {
+      console.log('login')
       return NextResponse.redirect(new URL("/", req.url));
     }
 
-    if (["/", "/blog"].includes(pathname) && !token) {
-      return NextResponse.redirect(new URL("/auth/login", req.url));
+    if (["/", "/setting",'/profile','/call','/status'].includes(pathname) && !token) {
+      return NextResponse.redirect(new URL("/login", req.url));
     }
   },
   {
@@ -23,13 +24,10 @@ export default withAuth(
         const {
           nextUrl: { pathname },
         } = req;
-
-        return (!token && pathname.startsWith("/auth")) || !!token;
+        return (!token && pathname.startsWith("/")) || !!token;
       },
     },
   }
 );
 
-export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"], // will execute the middleware on every route
-};
+export const config = { matcher: ['/','/setting','/profile','/status','/call'] }

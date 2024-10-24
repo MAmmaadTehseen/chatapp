@@ -1,13 +1,23 @@
 "use client";
 import { FormEvent, useState } from "react";
-import { signIn} from "next-auth/react";
+import { signIn, useSession} from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Loading from "../loading";
 
 export default function Login() {
     const [error, setError] = useState("");
-    
-const router = useRouter();
+    const { status } = useSession();
+  const router = useRouter();
+ 
+    if (status === "loading") {
+      return(
+        <Loading/>
+      )
+    } 
+    else if(status==="authenticated"){
+      return router.push("/")
+    } 
 
 const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,6 +31,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
       setError('Wrong Credentails');
     }
     if (res?.ok) {
+
       return router.push("/");
     }
 };
@@ -53,7 +64,7 @@ return (
         <Link
           href="/register"
           className="text-sm text-[#888] transition duration-150 ease hover:text-black">
-          Don not have an account?
+          Dont have an account?
         </Link>
       </form>
     </section>

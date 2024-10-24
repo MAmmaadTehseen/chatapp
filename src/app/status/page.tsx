@@ -1,8 +1,8 @@
 import React from 'react'
 
-const page = () => {
+const Page = () => {
     return (
-        <div className="grid place-items-center h-screen  text-red-600 text-9xl m-6">
+        <div className="grid ml-10 place-items-center h-screen  text-red-600 text-9xl ">
             <div>
                Status Will Be Avaliable Soon
             </div>
@@ -10,4 +10,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

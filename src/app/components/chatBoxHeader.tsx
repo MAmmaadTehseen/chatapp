@@ -5,7 +5,6 @@ import { CiSearch } from "react-icons/ci";
 import { Avatar } from 'antd';
 export default function chatBoxhead(props: any) {
     const { user } = props;
-    console.log(user)
     return (
         <div className='h-16 flex justify-between min-w-80'>
             <div className='p-2'>
