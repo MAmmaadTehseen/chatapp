@@ -50,20 +50,17 @@ const Sidebar: React.FC = () => {
 
         {
             key: '1', icon: <MessageOutlined />, label: 'Chats', onClick: () => {
-                setKey("1")
                 router.push("/")
             }
         },
         {
             key: '2', icon: <PhoneOutlined />, label: 'Calls', onClick: () => {
-                setKey("2")
                 router.push("/call")
                 console.log(pathname)
             }
         },
         {
             key: '3', icon: <ContainerOutlined />, label: 'Status', onClick: () => {
-                setKey("3")
                 router.push("/status")
                 console.log(pathname)
             }
@@ -75,13 +72,11 @@ const Sidebar: React.FC = () => {
 
         {
             key: '5', icon: <SettingOutlined />, label: 'Settings', onClick: () => {
-                setKey("5")
                 router.push("/setting")
             }
         },
         {
             key: '6', icon: <UserOutlined />, label: 'Profile', onClick: () => {
-                setKey("6")
                 router.push("/profile")
             }
         },
