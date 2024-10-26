@@ -30,13 +30,11 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     if (res?.error) {
       setError('Wrong Credentails');
     }
-    if (res?.ok) {
-
-      return router.push("/");
-    }
+ 
 };
 return (
-    <section className="w-full h-screen flex items-center justify-center">
+    <section className="w-full  h-screen flex items-center justify-center">
+
       <form
         className="p-6 w-full max-w-[400px] flex flex-col justify-between items-center gap-2 
         border border-solid border-black bg-white rounded"

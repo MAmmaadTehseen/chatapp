@@ -110,9 +110,8 @@ const Sidebar: React.FC = () => {
       },
     }}
   >
-            <div className='h-screen flex w-10 flex-col justify-between bg-primary '  >
+            <div className='h-screen flex w-10 flex-col justify-between bg-[#006d77] '  >
                 <div >
-
                     <Menu
                         className='customclass'
                         selectedKeys={[key]}
