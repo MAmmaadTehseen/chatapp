@@ -23,13 +23,15 @@ export default function RootLayout({
     <html lang="en">
 
     <Provider>
+        <Suspense fallback={<Loading />}>
     <body >
     <div className="z-50 fixed ">
   <Sidebar />
         </div>
-        <Suspense fallback={<Loading />}>{children}</Suspense>
+        {children}
       {/* <div className={inter.className}>{children}</div> */}
       </body>
+        </Suspense>
     </Provider>
 
     </html>

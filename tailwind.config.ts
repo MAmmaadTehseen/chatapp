@@ -15,6 +15,13 @@ const config: Config = {
       },
     },
   },
+  colors: {
+    primary: '#006d77',
+    secondary: '#83c5be',
+    
+    // ..
+  },
   plugins: [],
 };
+
 export default config;

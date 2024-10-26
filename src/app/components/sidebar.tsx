@@ -12,15 +12,14 @@ import {
     UserOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Button, Menu } from 'antd';
+import { Button, ConfigProvider, Menu } from 'antd';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
-
+import '@/app/globals.css'
 type MenuItem = Required<MenuProps>['items'][number];
 
 
 
 const Sidebar: React.FC = () => {
-
     const router = useRouter()
     const [key, setKey] = useState("1");
     const { status } = useSession();
@@ -99,16 +98,29 @@ const Sidebar: React.FC = () => {
 
 
         return (
-            <div className='h-screen flex w-10 flex-col justify-between   ' style={{ background: "black", maxWidth: 180 }} >
+        <ConfigProvider
+    theme={{
+      token: {
+        // Seed Token
+        colorPrimary: '#00b96b',
+        borderRadius: 2,
+
+        // Alias Token
+        colorBgContainer: '#f6ffed',
+      },
+    }}
+  >
+            <div className='h-screen flex w-10 flex-col justify-between bg-primary '  >
                 <div >
 
                     <Menu
+                        className='customclass'
                         selectedKeys={[key]}
                         mode="inline"
                         theme="dark"
                         items={items1}
                         inlineCollapsed={true}
-                        style={{ backgroundColor: "black", width: "40px" }}
+                        style={{ backgroundColor:'#006d77', width: "40px" }}
                     />
                 </div>
 
@@ -122,10 +134,12 @@ const Sidebar: React.FC = () => {
                         theme="dark"
                         inlineCollapsed={true}
                         items={items2}
-                        style={{ backgroundColor: "black", width: "40px" }}
+                        style={{ backgroundColor: "#006d77", width: "40px" }}
                     />
                 </div>
             </div>
+                
+  </ConfigProvider>
         );
     }
 };
