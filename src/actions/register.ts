@@ -1,6 +1,6 @@
 "use server"
 import { connectDB } from "@/lib/mongoDB";
-import User from "@/model/User";
+import User from "@/app/api/auth/[...nextauth]/model/User";
 import bcrypt from "bcryptjs";
 
 export const register = async (values: any) => {
@@ -10,20 +10,20 @@ export const register = async (values: any) => {
         console.log("auth")
         await connectDB();
         const userFound = await User.findOne({ email });
-        if(userFound){
+        if (userFound) {
             return {
                 error: 'Email already exists!'
             }
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = new User({
-          name,
-          email,
-          password: hashedPassword,
+            name,
+            email,
+            password: hashedPassword,
         });
         const savedUser = await user.save();
 
-    }catch(e){
+    } catch (e) {
         console.log(e);
     }
 }

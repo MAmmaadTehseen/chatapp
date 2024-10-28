@@ -73,15 +73,15 @@ const user = [{
 export default function chatBox() {
     return (
         <div className='bg-blue-950 pl-10 h-screen flex flex-col justify-between'>
-            <div className=''>
-                <ChatBoxhead user={user} />
+            <div>
+                <ChatBoxhead user={user}/>
             </div>
             <div className='bg-blue-500 grow'>
-                <ChatBoxMain msg={msg} />
+                <ChatBoxMain msg={msg}/>
             </div>
-            <div >
-                <ChatBoxFooter />
+            <div>
+                <ChatBoxFooter/>
             </div>
-        </div >
+        </div>
     )
 }

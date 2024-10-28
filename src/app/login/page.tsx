@@ -16,7 +16,7 @@ export default function Login() {
       )
     } 
     else if(status==="authenticated"){
-      return router.push("/")
+      ()=> router.push("/")
     } 
 
 const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
