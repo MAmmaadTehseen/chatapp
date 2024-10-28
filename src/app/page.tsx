@@ -30,14 +30,15 @@ export default function Home() {
         <Loading/>
       )
     } else {
-      return (
-        <Link
-          href="/login"
-          className="border border-solid border-black rounded"
-        >
-          Sign In
-        </Link>
-      )
+      router.push('/login')
+      // return (
+      // <Link
+      // href="/login"
+      // className="border border-solid border-black rounded"
+      // >
+      //     Sign In
+      //   </Link>
+      // )
     }
   }
   return (

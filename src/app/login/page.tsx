@@ -30,6 +30,9 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     if (res?.error) {
       setError('Wrong Credentails');
     }
+    if (res?.ok) {
+      return router.push('/')
+    }
  
 };
 return (
