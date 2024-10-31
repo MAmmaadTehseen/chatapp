@@ -1,11 +1,11 @@
+// 'use client'
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Provider } from  "./provider";
-import Sidebar from "./components/sidebar";
 import { Suspense } from "react";
 import Loading from "./loading";
-
+// import { Provider } from 'react-redux';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -21,19 +21,17 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-
-    <Provider>
+      <Provider >
+    
         <Suspense fallback={<Loading />}>
     <body >
-    <div className="z-50 fixed ">
-  <Sidebar />
-        </div>
+   
         {children}
       {/* <div className={inter.className}>{children}</div> */}
       </body>
         </Suspense>
+    {/* </Provider> */}
     </Provider>
-
     </html>
   );
 }

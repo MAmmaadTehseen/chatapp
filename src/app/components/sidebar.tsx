@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { BsAlexa } from "react-icons/bs";
 import { useSession } from "next-auth/react";
-
+import { useSelector, useDispatch } from 'react-redux';
+import { change } from '../slices/modeSlice';
 import {
     ContainerOutlined,
     MenuUnfoldOutlined,
@@ -12,7 +13,7 @@ import {
     UserOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Button, ConfigProvider, Menu } from 'antd';
+import { Button, ConfigProvider, Menu, Switch } from 'antd';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import '@/app/globals.css'
 type MenuItem = Required<MenuProps>['items'][number];
@@ -23,29 +24,32 @@ const Sidebar: React.FC = () => {
     const router = useRouter()
     const [key, setKey] = useState("1");
     const { status } = useSession();
+    const mode = useSelector((state: any) => state.mode.value);
 
+console.log(mode)
+    const dispatch = useDispatch();
     const pathname = usePathname();
     const searchParams = useSearchParams()
     useEffect(() => {
-    if(pathname=='/'){
-        setKey('1')
-    }
-   else if(pathname=='/call'){
-        setKey('2')
-    }
-   else if(pathname=='/status'){
-        setKey('3')
-    }
-   else if(pathname=='/setting'){
-        setKey('5')
-    }
-   else if(pathname=='/profile'){
-        setKey('6')
-    }
-    
-     
+        if (pathname == '/') {
+            setKey('1')
+        }
+        else if (pathname == '/call') {
+            setKey('2')
+        }
+        else if (pathname == '/status') {
+            setKey('3')
+        }
+        else if (pathname == '/setting') {
+            setKey('5')
+        }
+        else if (pathname == '/profile') {
+            setKey('6')
+        }
+
+
     }, [pathname])
-    
+
     const items1: MenuItem[] = [
 
         {
@@ -71,6 +75,13 @@ const Sidebar: React.FC = () => {
     const items2: MenuItem[] = [
 
         {
+            key: '4', icon: <Switch size='small' value={mode} />, label: 'Dark Mode', onClick: () => {
+                // router.push("/setting")
+                console.log('dark mode switch')
+                dispatch(change())
+            }
+        },
+        {
             key: '5', icon: <SettingOutlined />, label: 'Settings', onClick: () => {
                 router.push("/setting")
             }
@@ -93,47 +104,47 @@ const Sidebar: React.FC = () => {
 
 
         return (
-        <ConfigProvider
-    theme={{
-      token: {
-        // Seed Token
-        colorPrimary: '#00b96b',
-        borderRadius: 2,
+            <ConfigProvider
+                theme={{
+                    token: {
+                        // Seed Token
+                        colorPrimary: '#00b96b',
+                        borderRadius: 2,
 
-        // Alias Token
-        colorBgContainer: '#f6ffed',
-      },
-    }}
-  >
-            <div className='h-screen flex w-10 flex-col justify-between bg-[#006d77] '  >
-                <div >
-                    <Menu
-                        className='customclass'
-                        selectedKeys={[key]}
-                        mode="inline"
-                        theme="dark"
-                        items={items1}
-                        inlineCollapsed={true}
-                        style={{ backgroundColor:'#006d77', width: "40px" }}
-                    />
+                        // Alias Token
+                        colorBgContainer: '#f6ffed',
+                    },
+                }}
+            >
+                <div className='h-screen flex w-10 flex-col justify-between bg-[#006d77] '  >
+                    <div>
+                        <Menu
+                            className='customclass'
+                            selectedKeys={[key]}
+                            mode="inline"
+                            theme={mode?"dark":"light"}
+                            items={items1}
+                            inlineCollapsed={true}
+                            style={{ backgroundColor: '#006d77', width: "40px" }}
+                        />
+                    </div>
+
+
+                    <div >
+
+                        <Menu
+                            selectedKeys={[key]}
+                            defaultOpenKeys={['sub1']}
+                            mode="inline"
+                            theme="dark"
+                            inlineCollapsed={true}
+                            items={items2}
+                            style={{ backgroundColor: "#006d77", width: "40px" }}
+                        />
+                    </div>
                 </div>
 
-
-                <div >
-
-                    <Menu
-                        selectedKeys={[key]}
-                        defaultOpenKeys={['sub1']}
-                        mode="inline"
-                        theme="dark"
-                        inlineCollapsed={true}
-                        items={items2}
-                        style={{ backgroundColor: "#006d77", width: "40px" }}
-                    />
-                </div>
-            </div>
-                
-  </ConfigProvider>
+            </ConfigProvider>
         );
     }
 };
