@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { BsAlexa } from "react-icons/bs";
 import { useSession } from "next-auth/react";
 import { useSelector, useDispatch } from 'react-redux';
-import { change } from '../slices/modeSlice';
+import { changeMode } from '../slices/modeSlice';
+import { changeChat } from '../slices/chatSlice';
 import {
     ContainerOutlined,
     MenuUnfoldOutlined,
@@ -54,7 +55,9 @@ console.log(mode)
 
         {
             key: '1', icon: <MessageOutlined />, label: 'Chats', onClick: () => {
+                dispatch(changeChat(""))
                 router.push("/")
+            
             }
         },
         {
@@ -78,7 +81,7 @@ console.log(mode)
             key: '4', icon: <Switch size='small' value={mode} />, label: 'Dark Mode', onClick: () => {
                 // router.push("/setting")
                 console.log('dark mode switch')
-                dispatch(change())
+                dispatch(changeMode())
             }
         },
         {

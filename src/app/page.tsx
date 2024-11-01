@@ -7,28 +7,21 @@ import { useRouter } from "next/navigation";
 import Loading from "./loading";
 import { Provider } from 'react-redux';
 import store from './store/store';
-import Sidebar from "./components/sidebar";
 import "./globals.css";
-
+import { useSelector } from 'react-redux'
+import Main from'./main'
 export default function Home() {
   const { status } = useSession();
   const router = useRouter();
+// console.log(chat)
   const showSession = () => {
     if (status === "authenticated") {
       return (
-
-
-
+        
+        
         <Provider store={store} >
-          <div className="z-50 fixed ">
-            <Sidebar />
-          </div>
-          <div className="fixed left-10  z-50  sm:block pr-3       ">
-            <ChatMenu />
-          </div>
-          <div className="sm:fixed sm:right-0  sm:w-auto sm:left-80 hidden sm:block ">
-            <ChatBox />
-          </div>
+<Main/>
+         
         </Provider>
       )
     } else if (status === "loading") {

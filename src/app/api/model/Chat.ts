@@ -1,15 +1,14 @@
 import  mongoose, { Schema, model } from  "mongoose";
 export interface ChatDocument {
     _id: string;
-    user1: string;
-    user2: string;
+    users: [String];
     createdAt: Date;
     updatedAt: Date;
   }
   const ChatSchema = new Schema<ChatDocument>({
     
-    user1: { type: String, required: true },
-    user2: { type: String, required: true },
+    users: {type: [String], required: true },
+   
   },
   {
     timestamps: true,

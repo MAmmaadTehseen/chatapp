@@ -1,11 +1,10 @@
 import React from 'react'
-import Image from 'next/image'
 import { MdDone } from "react-icons/md";
 import { MdDoneAll } from "react-icons/md";
-import { EditOutlined, MenuOutlined } from '@ant-design/icons';
+import {SearchOutlined , EditOutlined, MenuOutlined } from '@ant-design/icons';
 import { Avatar } from 'antd';
-import { useSelector } from 'react-redux'
-import { IconContext } from 'react-icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeChat } from '../slices/chatSlice';
 const chats = [
     {
         user: "Ammad khan",
@@ -45,7 +44,7 @@ const chats = [
         status: "read",
 
     },
-   
+
     {
         user: "Namatullah",
         userID: "005",
@@ -67,24 +66,33 @@ const chats = [
 ]
 export default function chatMenu() {
     const mode = useSelector((state: any) => state.mode.value);
+    const chat = useSelector((state: any) => state.chat.value);
 
+    console.log(chat)
+        const dispatch = useDispatch();
     return (
-        <div className={`w-full overflow-scroll pr-2 sm:w-80 h-screen min-w-80 ${mode?'bg-[#043541] text-white':'bg-slate-100 text-black'}`}>
+        <div className={` overflow-scroll pr-2 sm:w-80 h-screen min-w-80 ${mode ? 'bg-[#043541] text-white' : 'bg-slate-100 text-black'}`}>
 
-            <header className='flex justify-between'>
-                <div>
+            <header className=' sm:w-80 min-w-80 '>
+               <div className='flex justify-between'>
+               <div>
                     <h1 className='text-2xl  font-bold p-4'>chats</h1>
                 </div>
                 <div className='p-4'>
-                    <button className='px-2 py-3'>
+                    <button className='px-2 py-1'>
                         <EditOutlined className='' />
                     </button>
-                    <button className='px-2 py-3'>
+                    <button className='px-2 py-1'>
                         <MenuOutlined className='' />
                     </button>
                 </div>
+               </div>
+                <div className='flex justify-end'>
+                    <SearchOutlined style={{ fontSize: '24px', color: mode?'#006d77':'#000000' }} className='p-2' />
+                    <input type='search' className={` sm:w-72 w-full p-2 m-2 border ${mode?'border-[#006d77] bg-[#043041]':'border-black bg-white'} rounded-xl `}/>
+                </div>
             </header>
-            <main>
+            <main className=' '>
                 {chats.length > 0 &&
                     chats.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()).map(chat => {
                         const getDateOrDay = (timestamp: string) => {
@@ -100,7 +108,12 @@ export default function chatMenu() {
 
 
                         return (
-                            <div key={chat.userID} className='flex items-center p-2 pr-4    w-full hover:bg-gray-800  border-b-gray-300 m-2 min-w-72 '>
+                            <div key={chat.userID}>
+                            <div onClick={()=>{console.log("ammaf clicked",chat.userID)
+                                 dispatch(changeChat(chat.userID))
+                            }
+                        }  className='flex items-center p-2 pr-4    w-full hover:bg-gray-800   border-b-gray-300 m-2 min-w-72 ' >
+                                    
                                 <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }} src={chat.image && <img src={chat.image} />} alt={chat.user[0].toUpperCase()} />
                                 <div className='ml-4  w-full sm:w-80 '>
                                     <div className='flex  justify-between '>
@@ -113,7 +126,10 @@ export default function chatMenu() {
                                         <p className='text-sm   line-clamp-1 pr-6'>{chat.lastMessage}</p>
                                     </div>
                                 </div>
-                            </div>)
+                            
+                                </div>
+                                </div>
+                                )
                     }
                     )}
                 {chats.length < 1 &&

@@ -6,10 +6,10 @@ const modeSlice = createSlice({
   name: 'mode',
   initialState,
   reducers: {
-    change: (state) => { state.value =!( state.value); },
+    changeMode: (state) => { state.value =!( state.value); },
     // decrement: (state) => { state.value -= 1; },
   },
 });
 
-export const { change } = modeSlice.actions;
+export const { changeMode } = modeSlice.actions;
 export default modeSlice.reducer;

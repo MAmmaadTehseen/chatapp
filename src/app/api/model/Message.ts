@@ -2,8 +2,7 @@ import  mongoose, { Schema, model } from  "mongoose";
 export interface Message {
     _id: string;
     text: string;
-    senderId: string;
-    reciverId: string;
+chatId:string;
     createdAt: Date;
     updatedAt: Date;
   }
@@ -13,14 +12,12 @@ export interface Message {
       required: [true, "Message is required"],
      
     },
-    senderId: {
+    chatId: {
       type: String,
-      required: true
+      required: [true, "ID is required"],
+     
     },
-    reciverId: {
-      type: String,
-      required: [true, "Name is required"]
-    }
+   
   },
   {
     timestamps: true,
