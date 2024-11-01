@@ -8,6 +8,7 @@ import Loading from "./loading";
 import { Provider } from 'react-redux';
 import store from './store/store';
 import Sidebar from "./components/sidebar";
+import "./globals.css";
 
 export default function Home() {
   const { status } = useSession();

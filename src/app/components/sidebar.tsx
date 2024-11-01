@@ -112,20 +112,18 @@ console.log(mode)
                         borderRadius: 2,
 
                         // Alias Token
-                        colorBgContainer: '#f6ffed',
                     },
                 }}
             >
-                <div className='h-screen flex w-10 flex-col justify-between bg-[#006d77] '  >
+                <div className={`h-screen flex w-10 flex-col justify-between ${mode?'bg-[#006d77]':'bg-white'} `}  >
                     <div>
                         <Menu
-                            className='customclass'
                             selectedKeys={[key]}
                             mode="inline"
                             theme={mode?"dark":"light"}
                             items={items1}
                             inlineCollapsed={true}
-                            style={{ backgroundColor: '#006d77', width: "40px" }}
+                            style={{ backgroundColor:mode?'#006d77':'#ffffff', width: "40px" }}
                         />
                     </div>
 
@@ -136,10 +134,10 @@ console.log(mode)
                             selectedKeys={[key]}
                             defaultOpenKeys={['sub1']}
                             mode="inline"
-                            theme="dark"
+                            theme={mode?"dark":"light"}
                             inlineCollapsed={true}
                             items={items2}
-                            style={{ backgroundColor: "#006d77", width: "40px" }}
+                            style={{ backgroundColor:mode?'#006d77':'#ffffff', width: "40px" }}
                         />
                     </div>
                 </div>

@@ -2,6 +2,8 @@
 import Sidebar from "../components/sidebar";
 import { Provider } from 'react-redux';
 import store from '../store/store';
+// import "../global.css";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -12,7 +14,7 @@ export default function RootLayout({
   
       <Provider store={store} >
 
-        <div className="z-50 fixed ">
+        <div className="z-50 fixed">
           <Sidebar />
         </div>
         {children}

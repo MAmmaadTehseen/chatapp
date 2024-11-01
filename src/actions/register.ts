@@ -1,6 +1,6 @@
 "use server"
 import { connectDB } from "@/lib/mongoDB";
-import User from "@/app/api/auth/[...nextauth]/model/User";
+import User from "@/app/api/model/User";
 import bcrypt from "bcryptjs";
 
 export const register = async (values: any) => {

@@ -2,6 +2,8 @@ import React from 'react'
 import ChatBoxhead from './chatBoxHeader'
 import ChatBoxMain from './chatBoxMain'
 import ChatBoxFooter from './chatBoxFooter'
+import { useSelector } from 'react-redux'
+
 const msg = [
     {
         id: 114,
@@ -45,24 +47,8 @@ const msg = [
         status: 'recived',
         timestamp: new Date(),
     },
-    {
-        id: 8,
-        text: 'hi ds',
-        status: 'sent',
-        timestamp: new Date(),
-    },
-    {
-        id: 9,
-        text: 'hisdfsd sdfgvsdgfs',
-        status: 'sent',
-        timestamp: new Date(),
-    },
-    {
-        id: 10,
-        text: 'hi lorem da/dk ad kald kad lkas; sdk ate rt ete ad;adma;ld;lad;ald;lm',
-        status: 'sent',
-        timestamp: new Date(),
-    }
+    
+   
 ]
 const user = [{
     id: 1,
@@ -71,17 +57,24 @@ const user = [{
 }]
 
 export default function chatBox() {
+    const mode = useSelector((state: any) => state.mode.value);
+
     return (
-        <div className='bg-blue-950 pl-10 h-screen flex flex-col justify-between'>
+
+        
+        <div className={`pl-10  h-screen flex flex-col justify-between  ${mode ? 'bg-[#83c5be]' : 'bg-slate-400/90'}`}>
             <div>
-                <ChatBoxhead user={user}/>
+                <ChatBoxhead user={user} />
             </div>
-            <div className='bg-blue-500 grow'>
-                <ChatBoxMain msg={msg}/>
+            <div className='overflow-scroll grow'>
+                <ChatBoxMain msg={msg} />
             </div>
             <div>
-                <ChatBoxFooter/>
+                <ChatBoxFooter />
             </div>
         </div>
+        
+
+        
     )
 }

@@ -4,6 +4,7 @@ import { MdDone } from "react-icons/md";
 import { MdDoneAll } from "react-icons/md";
 import { EditOutlined, MenuOutlined } from '@ant-design/icons';
 import { Avatar } from 'antd';
+import { useSelector } from 'react-redux'
 import { IconContext } from 'react-icons';
 const chats = [
     {
@@ -65,19 +66,21 @@ const chats = [
     },
 ]
 export default function chatMenu() {
+    const mode = useSelector((state: any) => state.mode.value);
+
     return (
-        <div className='w-full overflow-scroll pr-2 sm:w-80 bg-blue-900 h-screen min-w-80'>
+        <div className={`w-full overflow-scroll pr-2 sm:w-80 h-screen min-w-80 ${mode?'bg-[#043541] text-white':'bg-slate-100 text-black'}`}>
 
             <header className='flex justify-between'>
                 <div>
-                    <h1 className='text-2xl text-gray-400 font-bold p-4'>chats</h1>
+                    <h1 className='text-2xl  font-bold p-4'>chats</h1>
                 </div>
                 <div className='p-4'>
                     <button className='px-2 py-3'>
-                        <EditOutlined className='text-white' />
+                        <EditOutlined className='' />
                     </button>
                     <button className='px-2 py-3'>
-                        <MenuOutlined className='text-white' />
+                        <MenuOutlined className='' />
                     </button>
                 </div>
             </header>
@@ -101,13 +104,13 @@ export default function chatMenu() {
                                 <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }} src={chat.image && <img src={chat.image} />} alt={chat.user[0].toUpperCase()} />
                                 <div className='ml-4  w-full sm:w-80 '>
                                     <div className='flex  justify-between '>
-                                        <h2 className='text-sm text-gray-200 font-bold'>{chat.user}</h2>
+                                        <h2 className='text-sm  font-bold'>{chat.user}</h2>
 
-                                        <p className='text-xs  text-gray-300 p-1 mx-3 '>{getDateOrDay(chat.timestamp)}</p>
+                                        <p className='text-xs   p-1 mx-3 '>{getDateOrDay(chat.timestamp)}</p>
                                     </div>
                                     <div className={'flex flex-row justify-start'}>
                                         <div className={`p-1 `}>{chat.status === 'sent' ? <MdDone color="white" /> : chat.status === 'delivered' ? <MdDoneAll color="white" /> : chat.status === 'read' ? <MdDoneAll color="blue" /> : ""}</div>
-                                        <p className='text-sm  text-gray-500 line-clamp-1 pr-6'>{chat.lastMessage}</p>
+                                        <p className='text-sm   line-clamp-1 pr-6'>{chat.lastMessage}</p>
                                     </div>
                                 </div>
                             </div>)
