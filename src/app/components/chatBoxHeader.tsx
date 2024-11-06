@@ -1,31 +1,26 @@
 import React from 'react'
-import { CiVideoOn } from "react-icons/ci";
-import { IoCallOutline } from "react-icons/io5";
-import { CiSearch } from "react-icons/ci";
-import { Avatar } from 'antd';
+import { Avatar, Button } from 'antd';
 import { useSelector } from 'react-redux'
+import { PhoneTwoTone, VideoCameraTwoTone } from '@ant-design/icons';
 
 export default function chatBoxhead(props: any) {
     const { user } = props;
     const mode = useSelector((state: any) => state.mode.value);
 
     return (
-        <div className={`h-16 flex justify-between min-w-80 ${mode?'bg-[#006d88] text-white':'bg-gray-300 text-black'} `}>
+        <div className={`h-16 flex justify-between min-w-80 ${mode?'bg-[#006d88] text-white':'bg-[#DFDFDF] text-black'} `}>
             <div className='p-2'>
                 <Avatar src={user[0].image} size={50} />
             </div>
-            <div className=' flex m-3 font-bold text-2xl justify-start'>
+            <div className='  m-3 mr-3 font-bold text-2xl '>
                 {user[0].name}
             </div>
-            <div className='flex'>
-                <div className={`flex  my-4 h-10   rounded-xl p-1 border ${mode?' border-[#83c5be]':'border-black'}`}>
-                    <button> <CiVideoOn className=' mx-2 text-3xl ' /></button>
-                    <div className={`${mode?' border-[#83c5be]':'border-black'} mx-2 border-l-2`}></div>
-                    <button><IoCallOutline className=' text-3xl ' /></button>
+                <div className={`flex  m-4 h-14   rounded-xl  `}>
+                    <Button className='border-none bg-[#DFDFDF]'> <PhoneTwoTone twoToneColor="#515151"   className=' mx-4 text-3xl'  /></Button>
+                    <Button className='border-none bg-[#DFDFDF]'><VideoCameraTwoTone twoToneColor="#515151"  className=' text-3xl ' /></Button>
                 </div>
 
-                <button><CiSearch className=' m-4 text-3xl' /></button>
-            </div>
+           
         </div>
     )
 }

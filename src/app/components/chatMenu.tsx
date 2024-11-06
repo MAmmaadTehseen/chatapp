@@ -1,16 +1,18 @@
 import React from 'react'
 import { MdDone } from "react-icons/md";
 import { MdDoneAll } from "react-icons/md";
-import {SearchOutlined , EditOutlined, MenuOutlined } from '@ant-design/icons';
-import { Avatar } from 'antd';
+import { SearchOutlined, EditOutlined, MenuOutlined } from '@ant-design/icons';
+import { Avatar, Button, Image } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeChat } from '../slices/chatSlice';
+import { FloatButton } from 'antd';
+
 const chats = [
     {
         user: "Ammad khan",
         userID: "001",
         lastMessage: "hi there",
-        timestamp: "2024-08-15T16:25:36.618+00:00",
+        timestamp: "2024-11-06T16:25:36.618+00:00",
         image: "https://ix-www.imgix.net/case-study/unsplash/unsplash02.jpg?ixlib=js-3.8.0&auto=compress%2Cformat&w=1446",
         status: "delivered",
         unread: false,
@@ -29,7 +31,7 @@ const chats = [
     {
         user: "Zaid bin naeem",
         userID: "003",
-        lastMessage: "ok i will be there also before coming contact me al well , in case i forget",
+        lastMessage: "ok i will be there also before coming contact me fs fsd fsd fs dfs df sdf sd f dsf s f sdf ds f sdf sdf al well , in case i forget",
         timestamp: "2024-07-16T16:25:36.618+00:00",
         image: "https://ix-www.imgix.net/case-study/unsplash/unsplash02.jpg?ixlib=js-3.8.0&auto=compress%2Cformat&w=1446",
         status: "recived",
@@ -69,27 +71,27 @@ export default function chatMenu() {
     const chat = useSelector((state: any) => state.chat.value);
 
     console.log(chat)
-        const dispatch = useDispatch();
+    const dispatch = useDispatch();
     return (
-        <div className={` overflow-scroll pr-2 sm:w-80 h-screen min-w-80 ${mode ? 'bg-[#043541] text-white' : 'bg-slate-100 text-black'}`}>
+        <div className={` overflow-scroll pr-2 sm:w-80 h-screen min-w-80 ${mode ? 'bg-[#043541] text-white' : 'bg-[#FFFFFF] text-black'}`}>
 
             <header className=' sm:w-80 min-w-80 '>
-               <div className='flex justify-between'>
-               <div>
-                    <h1 className='text-2xl  font-bold p-4'>chats</h1>
+                <div className='flex justify-between'>
+                    <div className='flex'>
+                        <h1 className='text-2xl  font-bold p-4'>ChatAPP</h1>
+                    </div>
+                    <div className='p-4'>
+                            <Button className='px-2 py-1 bg-primary text-white border-none ' color=''>
+                                <EditOutlined/>
+                            </Button>
+
+
+
+                    </div>
                 </div>
-                <div className='p-4'>
-                    <button className='px-2 py-1'>
-                        <EditOutlined className='' />
-                    </button>
-                    <button className='px-2 py-1'>
-                        <MenuOutlined className='' />
-                    </button>
-                </div>
-               </div>
                 <div className='flex justify-end'>
-                    <SearchOutlined style={{ fontSize: '24px', color: mode?'#006d77':'#000000' }} className='p-2' />
-                    <input type='search' className={` sm:w-72 w-full p-2 m-2 border ${mode?'border-[#006d77] bg-[#043041]':'border-black bg-white'} rounded-xl `}/>
+                    <SearchOutlined style={{ fontSize: '24px', color: mode ? '#006d77' : '#ABAFB1' }} className='p-2' />
+                    <input type='search' className={` sm:w-72 w-full p-2 m-2 border ${mode ? 'border-[#006d77] bg-[#043041]' : 'border-[#ABAFB1] bg-[#FFFFFF]'} rounded-xl `} />
                 </div>
             </header>
             <main className=' '>
@@ -109,27 +111,28 @@ export default function chatMenu() {
 
                         return (
                             <div key={chat.userID}>
-                            <div onClick={()=>{console.log("ammaf clicked",chat.userID)
-                                 dispatch(changeChat(chat.userID))
-                            }
-                        }  className='flex items-center p-2 pr-4    w-full hover:bg-gray-800   border-b-gray-300 m-2 min-w-72 ' >
-                                    
-                                <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }} src={chat.image && <img src={chat.image} />} alt={chat.user[0].toUpperCase()} />
-                                <div className='ml-4  w-full sm:w-80 '>
-                                    <div className='flex  justify-between '>
-                                        <h2 className='text-sm  font-bold'>{chat.user}</h2>
+                                <div onClick={() => {
+                                    console.log("ammaf clicked", chat.userID)
+                                    dispatch(changeChat(chat.userID))
+                                }
+                                } className='flex items-center p-2 w-full hover:bg-gray-800   border-b-gray-300 m-2 min-w-72 ' >
 
-                                        <p className='text-xs   p-1 mx-3 '>{getDateOrDay(chat.timestamp)}</p>
+                                    <Avatar style={{ backgroundColor: '#fde3cf' }} src={chat.image && <img src={chat.image} />} alt={chat.user[0].toUpperCase()} size={50}/>
+                                    <div className='ml-2  w-full sm:w-80 '>
+                                        <div className='flex  justify-between '>
+                                            <h2 className='text-sm text-black  font-bold'>{chat.user}</h2>
+
+                                            <p className='text-xs text-gray-500   p-1 mx-3 '>{getDateOrDay(chat.timestamp)}</p>
+                                        </div>
+                                        <div className={'flex flex-row justify-start'}>
+                                            {chat.status!='recived' && <div className={`p-1 `}>{chat.status === 'sent' ? <MdDone color="gray" /> : chat.status === 'delivered' ? <MdDoneAll color="gray" /> : chat.status === 'read' ? <MdDoneAll color="blue" /> : ""}</div>}
+                                            <p className='text-sm   line-clamp-1 pr-3 text-gray-800'>{chat.lastMessage}</p>
+                                        </div>
                                     </div>
-                                    <div className={'flex flex-row justify-start'}>
-                                        <div className={`p-1 `}>{chat.status === 'sent' ? <MdDone color="white" /> : chat.status === 'delivered' ? <MdDoneAll color="white" /> : chat.status === 'read' ? <MdDoneAll color="blue" /> : ""}</div>
-                                        <p className='text-sm   line-clamp-1 pr-6'>{chat.lastMessage}</p>
-                                    </div>
+
                                 </div>
-                            
-                                </div>
-                                </div>
-                                )
+                            </div>
+                        )
                     }
                     )}
                 {chats.length < 1 &&

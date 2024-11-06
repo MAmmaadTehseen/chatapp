@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/lib/auth.ts", "src/app/loading.tsx", "src/app/api/auth/[...nextauth]/route.ts", "src/app/api/user/get/[id]/route.js", "src/app/api/user/getAll/route.js", "src/app/api/user/update/route.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/lib/auth.ts", "src/app/loading.tsx", "src/app/api/auth/[...nextauth]/route.ts", "src/app/api/user/get/[id]/route.js", "src/app/api/user/getAll/route.js", "src/app/api/user/update/route.js", "tailwind.config.ts"],
   "exclude": ["node_modules"]
 }

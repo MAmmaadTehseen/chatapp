@@ -111,14 +111,14 @@ console.log(mode)
                 theme={{
                     token: {
                         // Seed Token
-                        colorPrimary: '#00b96b',
-                        borderRadius: 2,
+                        colorPrimary: '#0030a0',
+                        borderRadius: 8,
 
                         // Alias Token
                     },
                 }}
             >
-                <div className={`h-screen flex w-10 flex-col justify-between ${mode?'bg-[#006d77]':'bg-white'} `}  >
+                <div className={`h-screen flex w-10 darkMode flex-col justify-between bg-primary `}  >
                     <div>
                         <Menu
                             selectedKeys={[key]}
@@ -126,7 +126,7 @@ console.log(mode)
                             theme={mode?"dark":"light"}
                             items={items1}
                             inlineCollapsed={true}
-                            style={{ backgroundColor:mode?'#006d77':'#ffffff', width: "40px" }}
+                            style={{ backgroundColor:'#00A3FF', width: "40px" }}
                         />
                     </div>
 
@@ -140,7 +140,7 @@ console.log(mode)
                             theme={mode?"dark":"light"}
                             inlineCollapsed={true}
                             items={items2}
-                            style={{ backgroundColor:mode?'#006d77':'#ffffff', width: "40px" }}
+                            style={{ backgroundColor:'#00A3FF', width: "40px" }}
                         />
                     </div>
                 </div>
