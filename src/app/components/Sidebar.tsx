@@ -77,7 +77,7 @@ console.log(mode)
     const items2: MenuItem[] = [
 
         {
-            key: '4', icon: <Switch size='small' value={mode} />, label: 'Dark Mode', onClick: () => {
+            key: '4', icon: <Switch size='small' value={mode} />, label: mode?'Light Mode':'Dark Mode', onClick: () => {
                 // router.push("/setting")
                 console.log('dark mode switch')
                 dispatch(changeMode())

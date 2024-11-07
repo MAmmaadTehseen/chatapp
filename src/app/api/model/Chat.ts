@@ -1,13 +1,13 @@
 import  mongoose, { Schema, model } from  "mongoose";
 export interface ChatDocument {
     _id: string;
-    users: [String];
+    users: [Schema.Types.ObjectId];
     createdAt: Date;
     updatedAt: Date;
   }
   const ChatSchema = new Schema<ChatDocument>({
     
-    users: {type: [String], required: true },
+    users: {type: [Schema.Types.ObjectId],ref:'users', required: true },
    
   },
   {

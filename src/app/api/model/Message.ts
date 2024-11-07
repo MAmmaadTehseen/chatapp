@@ -2,7 +2,7 @@ import  mongoose, { Schema, model } from  "mongoose";
 export interface Message {
     _id: string;
     text: string;
-chatId:string;
+chatId:Schema.Types.ObjectId;
     createdAt: Date;
     updatedAt: Date;
   }
@@ -13,7 +13,7 @@ chatId:string;
      
     },
     chatId: {
-      type: String,
+      type: Schema.Types.ObjectId,
       required: [true, "ID is required"],
      
     },

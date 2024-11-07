@@ -9,7 +9,7 @@ export async function GET() {
         await connectDB();
         const userFound = await User.find();
         // console.log(userFound)
-        return NextResponse.json({userFound})
+        return NextResponse.json(userFound)
 
     } catch (e) {
         console.log(e);
