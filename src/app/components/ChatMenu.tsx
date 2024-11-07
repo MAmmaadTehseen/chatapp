@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { MdDone } from "react-icons/md";
 import { MdDoneAll } from "react-icons/md";
 import { SearchOutlined, EditOutlined, MenuOutlined } from '@ant-design/icons';
@@ -69,9 +69,18 @@ const chats = [
 export default function ChatMenu() {
     const mode = useSelector((state: any) => state.mode.value);
     const chat = useSelector((state: any) => state.chat.value);
-
-    console.log(chat)
     const dispatch = useDispatch();
+    async function getUsers() {
+        const users = await fetch('/api/user/getAll', {
+            method: 'GET',
+        })
+        const userFound = await users.json()
+    }
+
+    useEffect(() => {
+        getUsers()
+
+    }, [mode])
     return (
         <div className={` overflow-scroll pr-2 sm:w-80 h-screen min-w-80 ${mode ? 'bg-[#121212] text-white' : 'bg-[#FFFFFF] text-black'}`}>
 
@@ -81,9 +90,9 @@ export default function ChatMenu() {
                         <h1 className='text-2xl  font-bold p-4'>ChatAPP</h1>
                     </div>
                     <div className='p-4'>
-                            <Button className='px-2 py-1 bg-primary text-white border-none ' color=''>
-                                <EditOutlined/>
-                            </Button>
+                        <Button className='px-2 py-1 bg-primary text-white border-none ' color=''>
+                            <EditOutlined />
+                        </Button>
 
 
 
@@ -112,12 +121,12 @@ export default function ChatMenu() {
                         return (
                             <div key={chat.userID}>
                                 <div onClick={() => {
-                                  
+
                                     dispatch(changeChat(chat.userID))
                                 }
                                 } className='flex items-center p-2 w-full hover:bg-gray-800   border-b-gray-300 m-2 min-w-72 ' >
 
-                                    <Avatar style={{ backgroundColor: '#D9D9D9' }} src={chat.image && <img src={chat.image} />} alt={chat.user[0].toUpperCase()} size={50}/>
+                                    <Avatar style={{ backgroundColor: '#D9D9D9' }} src={chat.image && <img src={chat.image} />} alt={chat.user[0].toUpperCase()} size={50} />
                                     <div className='ml-2  w-full sm:w-80 '>
                                         <div className='flex  justify-between '>
                                             <h2 className='text-sm   font-bold'>{chat.user}</h2>
@@ -125,8 +134,8 @@ export default function ChatMenu() {
                                             <p className='text-xs text-gray-500   p-1 mx-3 '>{getDateOrDay(chat.timestamp)}</p>
                                         </div>
                                         <div className={'flex flex-row justify-start'}>
-                                            {chat.status!='recived' && <div className={`p-1 `}>{chat.status === 'sent' ? <MdDone color="gray" /> : chat.status === 'delivered' ? <MdDoneAll color="gray" /> : chat.status === 'read' ? <MdDoneAll color="blue" /> : ""}</div>}
-                                            <p className={`text-sm   line-clamp-1 pr-3 ${mode?'text-[#A0A0A0]':'text-[#A0A0A0]'}`}>{chat.lastMessage}</p>
+                                            {chat.status != 'recived' && <div className={`p-1 `}>{chat.status === 'sent' ? <MdDone color="gray" /> : chat.status === 'delivered' ? <MdDoneAll color="gray" /> : chat.status === 'read' ? <MdDoneAll color="blue" /> : ""}</div>}
+                                            <p className={`text-sm   line-clamp-1 pr-3 ${mode ? 'text-[#A0A0A0]' : 'text-[#A0A0A0]'}`}>{chat.lastMessage}</p>
                                         </div>
                                     </div>
 
