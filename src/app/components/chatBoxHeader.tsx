@@ -3,7 +3,7 @@ import { Avatar, Button } from 'antd';
 import { useSelector } from 'react-redux'
 import { PhoneTwoTone, VideoCameraTwoTone } from '@ant-design/icons';
 
-export default function chatBoxhead(props: any) {
+export default function ChatBoxhead(props: any) {
     const { user } = props;
     const mode = useSelector((state: any) => state.mode.value);
 
