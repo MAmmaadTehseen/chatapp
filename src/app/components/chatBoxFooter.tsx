@@ -4,7 +4,7 @@ import { IoIosAttach } from "react-icons/io";
 import { IoSend } from "react-icons/io5";
 import { useSelector } from 'react-redux'
 
-export default function chatBoxFooter() {
+export default function ChatBoxFooter() {
     const mode = useSelector((state: any) => state.mode.value);
 
     return (

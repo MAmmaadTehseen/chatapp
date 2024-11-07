@@ -3,7 +3,7 @@ import { MdDone } from "react-icons/md";
 import { MdDoneAll } from "react-icons/md";
 import { useSelector } from 'react-redux'
 
-export default function chatBoxMain(props: any) {
+export default function ChatBoxMain(props: any) {
     let { msg } = props
     const mode = useSelector((state: any) => state.mode.value);
     const dummy = useRef<HTMLDivElement | null>(null)

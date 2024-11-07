@@ -47,8 +47,8 @@ const msg = [
         status: 'recived',
         timestamp: new Date(),
     },
-    
-   
+
+
 ]
 const user = [{
     id: 1,
@@ -56,12 +56,12 @@ const user = [{
     image: 'https://www.thewowstyle.com/wp-content/uploads/2015/01/nature-images..jpg',
 }]
 
-export default function chatBox() {
+export default function ChatBox() {
     const mode = useSelector((state: any) => state.mode.value);
 
     return (
 
-        
+
         <div className={`pl-10  h-screen flex flex-col justify-between  ${mode ? 'bg-[#83c5be]' : 'bg-slate-400/90'}`}>
             <div>
                 <ChatBoxhead user={user} />
@@ -73,8 +73,8 @@ export default function chatBox() {
                 <ChatBoxFooter />
             </div>
         </div>
-        
 
-        
+
+
     )
 }

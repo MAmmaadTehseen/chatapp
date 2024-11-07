@@ -66,7 +66,7 @@ const chats = [
 
     },
 ]
-export default function chatMenu() {
+export default function ChatMenu() {
     const mode = useSelector((state: any) => state.mode.value);
     const chat = useSelector((state: any) => state.chat.value);
 
