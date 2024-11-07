@@ -1,5 +1,5 @@
 'use client'
-import Sidebar from "../components/sidebar";
+import Sidebar from "../components/Sidebar";
 import { Provider } from 'react-redux';
 import store from '../store/store';
 // import "../global.css";
@@ -11,14 +11,14 @@ export default function RootLayout({
 }>) {
 
   return (
-  
-      <Provider store={store} >
 
-        <div className="z-50 fixed">
-          <Sidebar />
-        </div>
-        {children}
-      </Provider>
-   
+    <Provider store={store} >
+
+      <div className="z-50 fixed">
+        <Sidebar />
+      </div>
+      {children}
+    </Provider>
+
   );
 }

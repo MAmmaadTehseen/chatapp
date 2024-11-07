@@ -1,7 +1,7 @@
 import React from 'react'
-import ChatBoxhead from './chatBoxHeader'
-import ChatBoxMain from './chatBoxMain'
-import ChatBoxFooter from './chatBoxFooter'
+import ChatBoxhead from './ChatBoxHeader'
+import ChatBoxMain from './ChatBoxMain'
+import ChatBoxFooter from './ChatBoxFooter'
 import { useSelector } from 'react-redux'
 
 const msg = [
@@ -66,7 +66,7 @@ export default function chatBox() {
             <div>
                 <ChatBoxhead user={user} />
             </div>
-            <div className='overflow-scroll grow'>
+            <div className='overflow-scroll grow bg-[#E7E7E7]'>
                 <ChatBoxMain msg={msg} />
             </div>
             <div>

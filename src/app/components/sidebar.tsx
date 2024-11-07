@@ -7,7 +7,6 @@ import { changeMode } from '../slices/modeSlice';
 import { changeChat } from '../slices/chatSlice';
 import {
     ContainerOutlined,
-    MenuUnfoldOutlined,
     MessageOutlined,
     PhoneOutlined,
     SettingOutlined,
@@ -107,17 +106,7 @@ console.log(mode)
 
 
         return (
-            <ConfigProvider
-                theme={{
-                    token: {
-                        // Seed Token
-                        colorPrimary: '#0030a0',
-                        borderRadius: 8,
-
-                        // Alias Token
-                    },
-                }}
-            >
+           
                 <div className={`h-screen flex w-10 darkMode flex-col justify-between bg-primary `}  >
                     <div>
                         <Menu
@@ -126,7 +115,7 @@ console.log(mode)
                             theme={mode?"dark":"light"}
                             items={items1}
                             inlineCollapsed={true}
-                            style={{ backgroundColor:'#00A3FF', width: "40px" }}
+                            className='bg-primary w-10'
                         />
                     </div>
 
@@ -140,12 +129,10 @@ console.log(mode)
                             theme={mode?"dark":"light"}
                             inlineCollapsed={true}
                             items={items2}
-                            style={{ backgroundColor:'#00A3FF', width: "40px" }}
-                        />
+                            className='bg-primary w-10'/>
                     </div>
                 </div>
 
-            </ConfigProvider>
         );
     }
 };
