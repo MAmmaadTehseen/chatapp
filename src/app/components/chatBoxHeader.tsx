@@ -16,7 +16,7 @@ export default function ChatBoxhead(props: any) {
                 {user[0].name}
             </div>
                 <div className={`flex  m-4 h-14   rounded-xl  `}>
-                    <Button className='border-none bg-[#DFDFDF]'> <PhoneTwoTone twoToneColor="#515151"   className=' mx-4 text-3xl'  /></Button>
+                    <Button className='border-none bg-[#DFDFDF]'> <PhoneTwoTone twoToneColor="#515151"   className=' px-4 text-3xl'  /></Button>
                     <Button className='border-none bg-[#DFDFDF]'><VideoCameraTwoTone twoToneColor="#515151"  className=' text-3xl ' /></Button>
                 </div>
 

@@ -2,7 +2,7 @@
 import Sidebar from "../components/Sidebar";
 import { Provider } from 'react-redux';
 import store from '../store/store';
-// import "../global.css";
+import "../global.css";
 
 export default function RootLayout({
   children,
