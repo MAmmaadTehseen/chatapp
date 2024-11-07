@@ -8,7 +8,7 @@ export default function ChatBoxhead(props: any) {
     const mode = useSelector((state: any) => state.mode.value);
 
     return (
-        <div className={`h-16 flex justify-between min-w-80 ${mode?'bg-[#006d88] text-white':'bg-[#DFDFDF] text-black'} `}>
+        <div className={`h-16 flex justify-between min-w-80 ${mode?'bg-[#121212] text-white':'bg-[#DFDFDF] text-black'} `}>
             <div className='p-2'>
                 <Avatar src={user[0].image} size={50} />
             </div>
@@ -16,8 +16,8 @@ export default function ChatBoxhead(props: any) {
                 {user[0].name}
             </div>
                 <div className={`flex  m-4 h-14   rounded-xl  `}>
-                    <Button className='border-none bg-[#DFDFDF]'> <PhoneTwoTone twoToneColor="#515151"   className=' px-4 text-3xl'  /></Button>
-                    <Button className='border-none bg-[#DFDFDF]'><VideoCameraTwoTone twoToneColor="#515151"  className=' text-3xl ' /></Button>
+                    {/* <Button className={`border-none ${!mode?'bg-[#DFDFDF]':'bg-[#121212]'}`} size={'large'} icon={<PhoneTwoTone twoToneColor="#515151"/>}></Button>
+                    <Button className={`border-none ${!mode?'bg-[#DFDFDF]':'bg-[#121212]'}`} size={'large'} icon={<VideoCameraTwoTone twoToneColor="#515151"/>}></Button> */}
                 </div>
 
            

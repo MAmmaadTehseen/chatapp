@@ -73,7 +73,7 @@ export default function ChatMenu() {
     console.log(chat)
     const dispatch = useDispatch();
     return (
-        <div className={` overflow-scroll pr-2 sm:w-80 h-screen min-w-80 ${mode ? 'bg-[#043541] text-white' : 'bg-[#FFFFFF] text-black'}`}>
+        <div className={` overflow-scroll pr-2 sm:w-80 h-screen min-w-80 ${mode ? 'bg-[#121212] text-white' : 'bg-[#FFFFFF] text-black'}`}>
 
             <header className=' sm:w-80 min-w-80 '>
                 <div className='flex justify-between'>
@@ -90,8 +90,8 @@ export default function ChatMenu() {
                     </div>
                 </div>
                 <div className='flex justify-end'>
-                    <SearchOutlined style={{ fontSize: '24px', color: mode ? '#006d77' : '#ABAFB1' }} className='p-2' />
-                    <input type='search' className={` sm:w-72 w-full p-2 m-2 border ${mode ? 'border-[#006d77] bg-[#043041]' : 'border-[#ABAFB1] bg-[#FFFFFF]'} rounded-xl `} />
+                    <SearchOutlined style={{ fontSize: '24px', color: mode ? '#ABAFB1' : '#ABAFB1' }} className='p-2' />
+                    <input type='search' className={` sm:w-72 w-full p-2 m-2 border ${mode ? 'border-[#ABAFB1] bg-[#121212]' : 'border-[#ABAFB1] bg-[#FFFFFF]'} rounded-xl outline-none`} />
                 </div>
             </header>
             <main className=' '>
@@ -112,21 +112,21 @@ export default function ChatMenu() {
                         return (
                             <div key={chat.userID}>
                                 <div onClick={() => {
-                                    console.log("ammaf clicked", chat.userID)
+                                  
                                     dispatch(changeChat(chat.userID))
                                 }
                                 } className='flex items-center p-2 w-full hover:bg-gray-800   border-b-gray-300 m-2 min-w-72 ' >
 
-                                    <Avatar style={{ backgroundColor: '#fde3cf' }} src={chat.image && <img src={chat.image} />} alt={chat.user[0].toUpperCase()} size={50}/>
+                                    <Avatar style={{ backgroundColor: '#D9D9D9' }} src={chat.image && <img src={chat.image} />} alt={chat.user[0].toUpperCase()} size={50}/>
                                     <div className='ml-2  w-full sm:w-80 '>
                                         <div className='flex  justify-between '>
-                                            <h2 className='text-sm text-black  font-bold'>{chat.user}</h2>
+                                            <h2 className='text-sm   font-bold'>{chat.user}</h2>
 
                                             <p className='text-xs text-gray-500   p-1 mx-3 '>{getDateOrDay(chat.timestamp)}</p>
                                         </div>
                                         <div className={'flex flex-row justify-start'}>
                                             {chat.status!='recived' && <div className={`p-1 `}>{chat.status === 'sent' ? <MdDone color="gray" /> : chat.status === 'delivered' ? <MdDoneAll color="gray" /> : chat.status === 'read' ? <MdDoneAll color="blue" /> : ""}</div>}
-                                            <p className='text-sm   line-clamp-1 pr-3 text-gray-800'>{chat.lastMessage}</p>
+                                            <p className={`text-sm   line-clamp-1 pr-3 ${mode?'text-[#A0A0A0]':'text-[#A0A0A0]'}`}>{chat.lastMessage}</p>
                                         </div>
                                     </div>
 

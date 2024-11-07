@@ -66,7 +66,7 @@ export default function ChatBox() {
             <div>
                 <ChatBoxhead user={user} />
             </div>
-            <div className='overflow-scroll grow bg-[#E7E7E7]'>
+            <div className={`overflow-scroll grow ${mode?'bg-[#292929]':'bg-[#E7E7E7]'}`}>
                 <ChatBoxMain msg={msg} />
             </div>
             <div>
