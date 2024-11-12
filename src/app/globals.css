@@ -2,15 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 :root {
   /* --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255; */
   background: rgb(255, 255, 255);
- 
+  -ms-overflow-style: none;  
 }
 .dark{
-  background: #000000;
+  -ms-overflow-style: none; 
+    background: #000000;
+    -webkit-scrollbar:none
+    
 }
 
 @media (prefers-color-scheme: dark) {

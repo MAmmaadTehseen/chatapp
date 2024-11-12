@@ -2,10 +2,11 @@ import React, { useEffect } from 'react'
 import { MdDone } from "react-icons/md";
 import { MdDoneAll } from "react-icons/md";
 import { SearchOutlined, EditOutlined, MenuOutlined } from '@ant-design/icons';
-import { Avatar, Button, Image } from 'antd';
+import { Avatar, Button } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeChat } from '../slices/chatSlice';
 import { FloatButton } from 'antd';
+import Image from 'next/image';
 
 const chats = [
     {
@@ -82,11 +83,12 @@ export default function ChatMenu() {
 
     }, [mode])
     return (
-        <div className={` overflow-scroll pr-2 sm:w-80 h-screen min-w-80 ${mode ? 'bg-[#121212] text-white' : 'bg-[#FFFFFF] text-black'}`}>
+        <div className={` overflow-scroll scrollbar-hide pr-2 sm:w-80 h-screen min-w-80 ${mode ? 'bg-[#121212] text-white' : 'bg-[#FFFFFF] text-black'}`}>
 
-            <header className=' sm:w-80 min-w-80 '>
+            <header className={` sm:w-80 min-w-80 w-full fixed  ${mode ? 'bg-[#121212] text-white' : 'bg-[#FFFFFF] text-black'} z-50 `}>
                 <div className='flex justify-between'>
                     <div className='flex'>
+                        <Image src='/icon.png' width={35} height={10} alt='Logo' className='m-2'></Image>
                         <h1 className='text-2xl  font-bold p-4'>ChatAPP</h1>
                     </div>
                     <div className='p-4'>
@@ -103,7 +105,7 @@ export default function ChatMenu() {
                     <input type='search' className={` sm:w-72 w-full p-2 m-2 border ${mode ? 'border-[#ABAFB1] bg-[#121212]' : 'border-[#ABAFB1] bg-[#FFFFFF]'} rounded-xl outline-none`} />
                 </div>
             </header>
-            <main className=' '>
+            <main className=' mt-32 '>
                 {chats.length > 0 &&
                     chats.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()).map(chat => {
                         const getDateOrDay = (timestamp: string) => {

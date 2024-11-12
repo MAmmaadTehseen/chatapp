@@ -28,7 +28,7 @@ export default function Home() {
 
 
         <Provider store={store} >
-          <Main />
+          <Main  />
 
         </Provider>
       )
