@@ -13,7 +13,7 @@ const Page = () => {
                     className="border border-solid border-black rounded"
                     onClick={() => {
                         signOut({ redirect: false }).then(() => {
-                            router.push("/");
+                            router.refresh();
                         });
                     }}
                 >

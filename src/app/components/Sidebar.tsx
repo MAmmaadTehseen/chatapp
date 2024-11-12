@@ -46,9 +46,19 @@ console.log(mode)
         else if (pathname == '/profile') {
             setKey('6')
         }
-
+     
 
     }, [pathname])
+    useEffect(() => {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        console.log('mode',prefersDark);
+        if (prefersDark) {
+          dispatch(changeMode(false))
+        }
+    
+   
+    }, [])
+    
 
     const items1: MenuItem[] = [
 
@@ -80,7 +90,7 @@ console.log(mode)
             key: '4', icon: <Switch size='small' value={mode} />, label: mode?'Light Mode':'Dark Mode', onClick: () => {
                 // router.push("/setting")
                 console.log('dark mode switch')
-                dispatch(changeMode())
+                dispatch(changeMode(mode))
             }
         },
         {

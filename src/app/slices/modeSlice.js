@@ -1,13 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { value:true };
+const initialState = {};
 
 const modeSlice = createSlice({
   name: 'mode',
   initialState,
   reducers: {
-    changeMode: (state) => { state.value =!( state.value); },
-    // decrement: (state) => { state.value -= 1; },
+    changeMode: (state, action) => {
+      state.value = !(action.payload);
+      console.log('state', state.value)
+      if (state.value == true) {
+        document.documentElement.classList.add('dark');
+      }
+      else {
+        document.documentElement.classList.remove('dark');
+      }
+    },
   },
 });
 

@@ -8,12 +8,20 @@ import Loading from "./loading";
 import { Provider } from 'react-redux';
 import store from './store/store';
 import "./globals.css";
-import { useSelector } from 'react-redux'
 import Main from './main'
+import { useEffect } from "react";
 export default function Home() {
   const { status } = useSession();
   const router = useRouter();
+
   // console.log(chat)
+  useEffect(() => {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // setDarkMode(prefersDark);
+    if (prefersDark) {
+      // document.documentElement.classList.add('dark');
+    }
+  }, []);
   const showSession = () => {
     if (status === "authenticated") {
       return (

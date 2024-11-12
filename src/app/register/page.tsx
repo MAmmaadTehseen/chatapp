@@ -5,83 +5,88 @@ import Link from "next/link";
 import { register } from "@/actions/register";
 import { useSession } from "next-auth/react";
 import Loading from "../loading";
+import { Form, Input, Button, Typography } from 'antd';
 
+const { Title } = Typography;
 
 export default function Register() {
     const ref = useRef<HTMLFormElement>(null);
     const [error, setError] = useState<string>();
-    const router = useRouter();
-    const { status } = useSession();
-
-    if (status === "loading") {
-        return (
-            <Loading />
-        )
-    }
-    else if (status === "authenticated") {
-       return router.push("/")
-    }
-
-
-    const handleSubmit = async (formData: FormData) => {
-        const r = await register({
-            email: formData.get("email"),
-            password: formData.get("password"),
-            name: formData.get("name")
-        });
-        ref.current?.reset();
-        if (r?.error) {
-            setError(r.error);
-            return;
+   
+const router=useRouter()
+    // const handleSubmit = async (formData: FormData) => {
+    //
+    // };
+    const handleSubmit =async (values: { name: string; email: string; password: string }) => {
+        setError('');
+        const { name, email, password } = values;
+        if (!name || !email || !password) {
+          setError('Please fill in all fields');
+        
         } else {
-            return router.push("/login");
+            const r = await register({
+                        email:email,
+                        password: password,
+                        name: name
+                    });
+                    // ref.current?.reset();
+                    if (r?.error) {
+                        setError(r.error);
+                        return;
+                    } else {
+                        return router.push("/login");
+                    }
         }
-    };
+      };
+
+
     return (
-        <section className="w-full h-screen flex items-center justify-center">
-            <form ref={ref}
-                action={handleSubmit}
-                className="p-6 w-full max-w-[400px] flex flex-col justify-between items-center gap-2 
-            border border-solid border-black bg-white rounded">
-                {error && <div className="">{error}</div>}
-                <h1 className="mb-5 w-full text-2xl font-bold">Register</h1>
-
-                <label className="w-full text-sm">Full Name</label>
-                <input
-                    type="text"
-                    placeholder="Full Name"
-                    className="w-full h-8 border border-solid border-black py-1 px-2.5 rounded text-[13px]"
-                    name="name"
-                />
-
-                <label className="w-full text-sm">Email</label>
-                <input
-                    type="email"
-                    placeholder="Email"
-                    className="w-full h-8 border border-solid border-black py-1 px-2.5 rounded"
-                    name="email"
-                />
-
-                <label className="w-full text-sm">Password</label>
-                <div className="flex w-full">
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        className="w-full h-8 border border-solid border-black py-1 px-2.5 rounded"
-                        name="password"
-                    />
-                </div>
-
-                <button className="w-full border border-solid border-black py-1.5 mt-2.5 rounded
-            transition duration-150 ease hover:bg-black">
-                    Sign up
-                </button>
-
-
-                <Link href="/login" className="text-sm text-[#888] transition duration-150 ease hover:text-black">
-                    Already have an account?
-                </Link>
-            </form>
-        </section>
-    )
+        <div className="flex items-center justify-center h-screen bg-gray-100 dark:bg-gray-900">
+          <Form
+            className="bg-white dark:bg-gray-800 p-6 rounded shadow-md w-80"
+            onFinish={handleSubmit}
+          >
+            <Title level={2} className="text-center mb-4 text-gray-800 dark:text-gray-200">Sign Up</Title>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+            <Form.Item
+              name="name"
+              rules={[{ required: true, message: 'Please input your name!' }]}
+            >
+              <Input
+                placeholder="Name"
+                className="border border-gray-300 dark:border-gray-600 rounded"
+              />
+            </Form.Item>
+            <Form.Item
+              name="email"
+              rules={[{ required: true, message: 'Please input your email!' }]}
+            >
+              <Input
+                placeholder="Email"
+                className="border border-gray-300 dark:border-gray-600 rounded"
+              />
+            </Form.Item>
+            <Form.Item
+              name="password"
+              rules={[{ required: true, message: 'Please input your password!' }]}
+            >
+              <Input.Password
+                placeholder="Password"
+                className="border border-gray-300 dark:border-gray-600 rounded"
+              />
+            </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="w-full bg-blue-500 hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-600"
+              >
+                Sign Up
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
+      );
 }
+
+

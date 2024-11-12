@@ -124,7 +124,7 @@ export default function ChatMenu() {
 
                                     dispatch(changeChat(chat.userID))
                                 }
-                                } className='flex items-center p-2 w-full hover:bg-gray-800   border-b-gray-300 m-2 min-w-72 ' >
+                                } className={`flex items-center p-2 w-full ${mode?'hover:bg-gray-800':'hover:bg-blue-200'}  border-b-gray-300 m-2 min-w-72 `} >
 
                                     <Avatar style={{ backgroundColor: '#D9D9D9' }} src={chat.image && <img src={chat.image} />} alt={chat.user[0].toUpperCase()} size={50} />
                                     <div className='ml-2  w-full sm:w-80 '>

@@ -1,73 +1,99 @@
 "use client";
-import { FormEvent, useState } from "react";
-import { signIn, useSession} from "next-auth/react";
+import { useState } from "react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+
+
+import { Form, Input, Button, Typography } from 'antd';
 import Loading from "../loading";
+import Link from "next/link";
 
-export default function Login() {
-    const [error, setError] = useState("");
-    const { status } = useSession();
-  const router = useRouter();
- 
-    if (status === "loading") {
-      return(
-        <Loading/>
-      )
-    } 
-    else if(status==="authenticated"){
-      ()=> router.push("/")
-    } 
+const { Title } = Typography;
+const Login: React.FC = () => {
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const { status } = useSession();
 
-const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const res = await signIn("credentials", {
-      email: formData.get("email"),
-      password: formData.get("password"),
-      redirect: false,
-    });
-    if (res?.error) {
-      setError('Wrong Credentails');
+  const router = useRouter()
+  console.log(status)
+  if (status === "loading") {
+    return (
+      <Loading />
+    )
+  }
+  else if (status === "authenticated") {
+   router.push("/")
+    return null
+  }
+
+  const handleSubmit = async (values: { email: string; password: string }) => {
+    // Reset error
+    setError(null);
+    const { email, password } = values;
+    if (email === '' || password === '') {
+      setError('Please fill in all fields');
+    } else {
+      setLoading(true)
+      const res = await signIn("credentials", {
+        email: email,
+        password: password,
+        redirect: false,
+      });
+      if (res?.error) {
+        setError('Wrong Credentails');
+        setLoading(false)
+        console.log(error)
+      }
+      if (res?.ok) {
+        return router.push('/')
+      }
     }
-    if (res?.ok) {
-      return router.push('/')
-    }
- 
-};
-return (
-    <section className="w-full  h-screen flex items-center justify-center">
+  };
 
-      <form
-        className="p-6 w-full max-w-[400px] flex flex-col justify-between items-center gap-2 
-        border border-solid border-black bg-white rounded"
-        onSubmit={handleSubmit}>
-        {error && <div className="text-white bg-red-600 border rounded-md p-1">{error}</div>}
-        <h1 className="mb-5 w-full text-2xl font-bold">Sign In</h1>
-        <label className="w-full text-sm">Email</label>
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full h-8 border border-solid border-black rounded p-2"
-          name="email" />
-        <label className="w-full text-sm">Password</label>
-        <div className="flex w-full">
-          <input
-            type="password"
+  return (
+    <div className="flex items-center justify-center h-screen bg-gray-100 dark:bg-gray-900 dark:text-white">
+      <Form
+        className="bg-white dark:bg-gray-800 p-6 rounded shadow-md w-80"
+        onFinish={handleSubmit}
+      >
+        <Title level={2} className="text-center mb-4 text-gray-800 dark:text-gray-100">Login</Title>
+        {error && <p className="text-red-500 text-md m-2">{error} !</p>}
+        <Form.Item
+          name="email"
+          rules={[{ required: true, message: 'Please input your email!' }]}
+        >
+          <Input
+            placeholder="Email"
+            className="border border-gray-300 dark:border-gray-600 dark:bg-gray-600 rounded"
+          />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          rules={[{ required: true, message: 'Please input your password!' }]}
+        >
+          <Input.Password
             placeholder="Password"
-            className="w-full h-8 border border-solid border-black rounded p-2"
-            name="password" />
-        </div>
-        <button className="w-full border border-solid border-black rounded">
-          Sign In
-        </button>
-
-        <Link
-          href="/register"
-          className="text-sm text-[#888] transition duration-150 ease hover:text-black">
-          Dont have an account?
-        </Link>
-      </form>
-    </section>
-);
+            className="border border-gray-300 dark:border-gray-600 dark:bg-gray-600 rounded"
+          />
+        </Form.Item>
+        <Form.Item>
+          <Button
+            loading={loading}
+            type="primary"
+            htmlType="submit"
+            className="w-full bg-blue-500 hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-600"
+          >
+            Login
+          </Button>
+          <Link
+          href='/register'
+          >
+          Don{"'"}t have an account Click Here !
+          </Link>
+        </Form.Item>
+      </Form>
+    </div>
+  );
 };
+
+export default Login;
