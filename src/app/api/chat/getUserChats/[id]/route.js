@@ -12,11 +12,11 @@ export async function GET(req, context) {
         const id = context.params.id
         const chatFound = await Chat.aggregate([
 
-            // {
-            //     $match: {
-            //       users: id, // Match chats that include the specified user
-            //     },
-            //   },
+            {
+                $match: {
+                   users: { $in: [new ObjectId(id)] } // Match chats that include the specified user
+                },
+              },
             {
                 $lookup: {
                     from: 'messages', // Join with the messages collection
@@ -37,29 +37,37 @@ export async function GET(req, context) {
             {
                 $project: {
                     _id: 1,
+                    updatedAt: 1,
                     users: {
                         $filter: {
                             input: '$usersDetails',
                             as: 'users',
-                            cond: { $ne: ['$$users._id', id] }, // Exclude the current user
+                            cond: { $ne: ['$$users._id', new ObjectId(id)] }, // Exclude the current user
                         },
                     },
                     lastMessage: {
                         $arrayElemAt: ['$messages', -1], // Get the last message
                     },
+
+
                 },
             },
-            //   {
-            //     $project: {
-                 
-            //       users: 1,
-            //       lastMessage: {
-            //         senderId: '$lastMessage.senderId',
-            //         content: '$lastMessage.content',
-            //         timestamp: '$lastMessage.timestamp',
-            //       },
-            //     },
-            //   },
+            {'$unwind':'$users'},
+            {
+                $project: {
+
+                    users: 1,
+                    lastMessage: {
+                        senderId: '$lastMessage.senderId',
+                        content: '$lastMessage.content',
+                        timestamp: '$lastMessage.timestamp',
+                    },
+                    chat: {
+                        chatID: '$_id',
+                        updatedAt: '$updatedAt'
+                    },
+                },
+            },
 
         ])
         // const chat = chatFound.filter((chat) =>chat.users[0]._id.toString()==id||chat.users[1]._id.toString()==id  )

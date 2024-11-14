@@ -13,6 +13,7 @@ import { Input } from 'antd';
 import { SearchProps } from 'antd/es/input';
 import { any } from 'prop-types';
 import { useSession } from 'next-auth/react';
+import { revalidatePath } from 'next/cache';
 const chats = [
     {
         user: "Ammad khan",
@@ -74,11 +75,11 @@ const chats = [
 ]
 export default function ChatMenu() {
     const { data: session } = useSession();
-    console.log(session?.user.id)
     const { Search } = Input;
     const mode = useSelector((state: any) => state.mode.value);
     const chat = useSelector((state: any) => state.chat.value);
     const [users, setUsers] = useState([])
+    const [Chats, setChats] = useState([])
     const [filteredUser, setFilteredUser] = useState([])
     const dispatch = useDispatch();
     async function getAllUsers() {
@@ -93,12 +94,33 @@ export default function ChatMenu() {
         setUsers(data)
         setFilteredUser(data.filter((user: any) => user._id != session?.user.id))
     }
+    async function getAllChats() {
+        // fetch all chats from server
+        const req = await fetch(`/api/chat/getUserChats/${session?.user.id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        const data = await req.json();
+        console.log(data)
+        setChats(data)
+    }
     useEffect(() => {
         getAllUsers()
+        getAllChats()
 
     }, [])
-    console.log('filter', filteredUser)
+    async function createChat(id: string) {
+        console.log('id', id)
+        const req = await fetch(`/api/chat/create`, {
+            method: 'POST',
 
+            body: JSON.stringify({ users: [session?.user.id, id] })
+        })
+        dispatch(changeChat(id))
+        getAllChats()
+    }
     // Function to create menu items based on users
     const createMenuItems = (filteredUser: any) => {
         return filteredUser.map((user: any) => (
@@ -108,7 +130,8 @@ export default function ChatMenu() {
                         <h4>{user.name}</h4>
                         <p>{user.email}</p>
                     </div>,
-                key: user._id
+                key: user._id,
+                onClick: (() => createChat(user._id))
             }
         ));
     }
@@ -132,12 +155,11 @@ export default function ChatMenu() {
 
         const filter = users?.filter((user: any) => (((user.email.includes(value)) || (user.name.includes(value))) && user._id != session?.user.id))
         setFilteredUser(filter)
-        console.log(filteredUser)
     };
 
 
     return (
-        <div className={` overflow-scroll scrollbar-hide pr-2 sm:w-80 h-screen min-w-80 ${mode ? 'bg-[#121212] text-white' : 'bg-[#FFFFFF] text-black'}`}>
+        <div className={` overflow-scroll scrollbar-hide  sm:w-80 h-screen min-w-80 ${mode ? 'bg-[#121212] text-white' : 'bg-[#FFFFFF] text-black'}`}>
 
             <header className={` sm:w-80 min-w-80 w-full fixed  dark:bg-[#121212] dark:text-white bg-[#FFFFFF] text-black z-50 `}>
                 <div className='flex justify-between'>
@@ -156,17 +178,18 @@ export default function ChatMenu() {
                 </div>
                 <Dropdown menu={{ items }} trigger={['hover']}>
                     <div className='flex justify-end'>
-                        <Search placeholder="Enter User E-mail" onChange={(e) => onSearch(e.target.value)} className={` sm:w-72 w-full p-2 m-2 border  rounded-xl outline-none`} />
+                        <Search placeholder="Enter User E-mail or Name" onChange={(e) => onSearch(e.target.value)} className={` sm:w-72  p-2 m-2 border  rounded-xl outline-none`} />
                     </div>
                 </Dropdown>
             </header>
             <main className=' mt-32 '>
-                {chats.length > 0 &&
-                    chats.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()).map(chat => {
+                {Chats.length > 0 &&
+                    Chats.sort((a: any, b: any) => new Date(b.chat.updatedAt).getTime() - new Date(a.chat.updatedAt).getTime()).map((chat: any) => {
+                        const num = '#' + Math.floor(Math.random() * 16777216).toString(16).padStart(6, '0');
+                        console.log(num)
                         const getDateOrDay = (timestamp: string) => {
                             const now = new Date(timestamp);
                             const hours = new Date().getTime() - now.getTime();
-                            console.log(now.getFullYear())
                             if (Math.abs(hours / 24 / 3600 / 1000) < 1 && now.getDate() === new Date().getDate() && now.getMonth() === new Date().getMonth() && now.getFullYear() === new Date().getFullYear()) {
                                 return now.toLocaleTimeString(); // Returns the day of the week
                             } else {
@@ -176,23 +199,23 @@ export default function ChatMenu() {
 
 
                         return (
-                            <div key={chat.userID}>
+                            <div key={chat._id}>
                                 <div onClick={() => {
 
-                                    dispatch(changeChat(chat.userID))
+                                    dispatch(changeChat(chat.chat.chatID))
                                 }
-                                } className={`flex items-center p-2 w-full ${mode ? 'hover:bg-gray-800' : 'hover:bg-blue-200'}  border-b-gray-300 m-2 min-w-72 `} >
+                                } className={`flex items-center p-2 w-screen ${mode ? 'hover:bg-gray-800' : 'hover:bg-blue-200'}  border-b-gray-300 m-2 min-w-72 `} >
 
-                                    <Avatar style={{ backgroundColor: '#D9D9D9' }} src={chat.image && <img src={chat.image} />} alt={chat.user[0].toUpperCase()} size={50} />
+                                    <Avatar style={{ backgroundColor: `${num}` }} src={chat.users.image && <img src={chat.users.image} />} alt={chat.users.name[0].toUpperCase()} size={50} >{chat.users.name[0].toUpperCase()} </Avatar>
                                     <div className='ml-2  w-full sm:w-80 '>
                                         <div className='flex  justify-between '>
-                                            <h2 className='text-sm   font-bold'>{chat.user}</h2>
+                                            <h2 className='text-sm   font-bold'>{chat.users.name}</h2>
 
-                                            <p className='text-xs text-gray-500   p-1 mx-3 '>{getDateOrDay(chat.timestamp)}</p>
+                                            <p className='text-xs text-gray-500   p-1 mx-3 '>{getDateOrDay(chat.chat.updatedAt)}</p>
                                         </div>
                                         <div className={'flex flex-row justify-start'}>
-
-                                            <p className={`text-sm   line-clamp-1 pr-3 ${mode ? 'text-[#A0A0A0]' : 'text-[#A0A0A0]'}`}>{chat.lastMessage}</p>
+                                            {chat?.lastMessage.text &&
+                                                <p className={`text-sm   line-clamp-1 pr-3 ${mode ? 'text-[#A0A0A0]' : 'text-[#A0A0A0]'}`}>{chat.lastMessage.text}</p>}
                                         </div>
                                     </div>
 
@@ -207,9 +230,9 @@ export default function ChatMenu() {
                             No Chats
                         </h1>
                         <h2 className='text-yellow-100'>
-                            click the button below to start
+                            Search to Add Chats
                         </h2>
-                        <button className='border border-gray-500 rounded-lg w-20 p-1 mt-2 bg-white'>New Chat</button>
+
                     </div>
                 }
 

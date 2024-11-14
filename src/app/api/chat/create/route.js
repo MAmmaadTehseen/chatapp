@@ -1,16 +1,20 @@
 import Chat from "@/app/api/model/Chat";
-import { NextResponse } from "next/server";0
+import { NextResponse } from "next/server"; 0
 import { connectDB } from "@/lib/mongoDB";
 
 export async function POST(req) {
     try {
         connectDB()
         let reqData = await req.json()
-let Chats=await Chat.find({users:reqData.users,})
-if(Chats[0]?.users.includes(reqData.users[0]) && Chats[0].users.includes(reqData.users[1])){
+        let Chats = await Chat.find()
 
-return NextResponse.json({error:"chat already exists"},{status:400})    
-}
+        const findChat = (Chats.filter((chat) => chat.users.some(items => items.toString() === reqData.users[0]) && chat.users.some(items => items.toString() === reqData.users[1])))
+        // check if chat already exists
+        console.log(findChat.length > 0)
+        if (findChat.length > 0) {
+
+            return NextResponse.json({ error: "chat already exists" }, { status: 400 })
+        }
         let createChat = await Chat.create({ users: reqData.users, })
         return NextResponse.json(createChat)
     }

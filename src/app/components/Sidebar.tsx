@@ -64,7 +64,7 @@ console.log(mode)
 
         {
             key: '1', icon: <MessageOutlined />, label: 'Chats', onClick: () => {
-                dispatch(changeChat(""))
+                dispatch(changeChat("#"))
                 router.push("/")
             
             }
