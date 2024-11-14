@@ -2,7 +2,10 @@ import  mongoose, { Schema, model } from  "mongoose";
 export interface Message {
     _id: string;
     text: string;
-chatId:Schema.Types.ObjectId;
+    status:string;
+    sender:Schema.Types.ObjectId;
+    reciver:Schema.Types.ObjectId;
+    chatId:Schema.Types.ObjectId;
     createdAt: Date;
     updatedAt: Date;
   }
@@ -17,6 +20,20 @@ chatId:Schema.Types.ObjectId;
       required: [true, "ID is required"],
      
     },
+    reciver: {
+      type: Schema.Types.ObjectId,
+      required: [true, "reciver ID is required"],
+     
+    },
+    sender: {
+      type: Schema.Types.ObjectId,
+      required: [true,  "Sender ID is required"],
+     
+    },
+    status:{
+      type:String,
+      
+    }
    
   },
   {

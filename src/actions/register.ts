@@ -3,9 +3,10 @@
 import { connectDB } from "../lib/mongoDB";
 import User from "../app/api/model/User";
 import bcrypt from "bcryptjs";
+import { Phone } from "@mui/icons-material";
 
 export const register = async (values: any) => {
-    const { email, password, name } = values;
+    const { email, password, name,phone } = values;
 
     try {
         console.log(password)
@@ -21,6 +22,7 @@ export const register = async (values: any) => {
             name,
             email,
             password: hashedPassword,
+            phone:phone
         });
         const savedUser = await user.save();
 

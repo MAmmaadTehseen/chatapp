@@ -35,22 +35,23 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/"
   },
+  session: {
+    strategy: 'jwt', // Use JWT for session management
+  },
   callbacks: {
-    session: async ({ session, token }) => {
-      if (session?.user) {
-        // session.user.id = token.sub;
-      }
-      return session;
-    },
-
-    jwt: async ({ user, token }) => {
+    async jwt({ token, user }) {
+      // Add user ID to token
       if (user) {
-        token.uid = user.id;
+        token.sub = user.id;
       }
       return token;
     },
-  },
-  session: {
-    strategy: 'jwt',
+    async session({ session, token }) {
+      // Add user ID to session
+      if (token) {
+        session.user.id = token.sub;
+      }
+      return session;
+    },
   },
 };

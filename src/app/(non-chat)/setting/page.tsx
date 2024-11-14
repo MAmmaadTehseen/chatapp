@@ -2,6 +2,7 @@
 import { useRouter } from 'next/navigation';
 import React from 'react'
 import { signOut } from "next-auth/react";
+import { revalidatePath } from 'next/cache';
 
 
 const Page = () => {
@@ -12,9 +13,7 @@ const Page = () => {
                 <button
                     className="border border-solid border-black rounded"
                     onClick={() => {
-                        signOut({ redirect: false }).then(() => {
-                            router.refresh();
-                        });
+                        signOut({ redirect: true });
                     }}
                 >
                     Sign Out

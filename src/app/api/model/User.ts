@@ -6,6 +6,7 @@ export interface UserDocument {
     name: string;
     phone: string;
     image: string;
+    mode:boolean;
     createdAt: Date;
     updatedAt: Date;
   }
@@ -26,7 +27,19 @@ export interface UserDocument {
     name: {
       type: String,
       required: [true, "Name is required"]
-    }
+    },
+    phone: {
+      type: String,
+      required: [true, "Phone is required"]
+    },
+    image: {
+      type: String,
+     
+    },
+    mode: {
+      type:Boolean,
+      
+    },
   },
   {
     timestamps: true,

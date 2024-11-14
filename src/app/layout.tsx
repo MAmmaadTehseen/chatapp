@@ -1,13 +1,12 @@
 // 'use client'
 import { connectDB } from "@/lib/mongoDB";
-
+import { SessionProvider } from 'next-auth/react';
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Provider } from  "./provider";
+import { Provider } from "./provider";
 import { Suspense } from "react";
 import Loading from "./loading";
-// import { Provider } from 'react-redux';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -24,16 +23,16 @@ export default function RootLayout({
   connectDB()
   return (
     <html lang="en">
-      <Provider >
-    
-        <Suspense fallback={<Loading />}>
-    <body >
-        {children}
-      {/* <div className={inter.className}>{children}</div> */}
-      </body>
-        </Suspense>
-    {/* </Provider> */}
-    </Provider>
+     
+        <Provider >
+
+          <Suspense fallback={<Loading />}>
+            <body >
+              {children}
+            </body>
+          </Suspense>
+        </Provider>
+      
     </html>
   );
 }

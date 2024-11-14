@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import { MdDone } from "react-icons/md";
 import { MdDoneAll } from "react-icons/md";
 import { SearchOutlined, EditOutlined, MenuOutlined } from '@ant-design/icons';
-import { Avatar, Button } from 'antd';
+import { Avatar, Button, Dropdown, Menu, MenuProps } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeChat } from '../slices/chatSlice';
 import { FloatButton } from 'antd';
 import Image from 'next/image';
-
+import { Key } from '@mui/icons-material';
+import { Input } from 'antd';
+import { SearchProps } from 'antd/es/input';
+import { any } from 'prop-types';
+import { useSession } from 'next-auth/react';
 const chats = [
     {
         user: "Ammad khan",
@@ -68,24 +73,73 @@ const chats = [
     },
 ]
 export default function ChatMenu() {
+    const { data: session } = useSession();
+    console.log(session?.user.id)
+    const { Search } = Input;
     const mode = useSelector((state: any) => state.mode.value);
     const chat = useSelector((state: any) => state.chat.value);
+    const [users, setUsers] = useState([])
+    const [filteredUser, setFilteredUser] = useState([])
     const dispatch = useDispatch();
-    async function getUsers() {
-        const users = await fetch('/api/user/getAll', {
+    async function getAllUsers() {
+        // fetch all users from server
+        const req = await fetch('/api/user/getAll', {
             method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
         })
-        const userFound = await users.json()
+        const data = await req.json();
+        setUsers(data)
+        setFilteredUser(data.filter((user: any) => user._id != session?.user.id))
     }
-
     useEffect(() => {
-        getUsers()
+        getAllUsers()
 
-    }, [mode])
+    }, [])
+    console.log('filter', filteredUser)
+
+    // Function to create menu items based on users
+    const createMenuItems = (filteredUser: any) => {
+        return filteredUser.map((user: any) => (
+            {
+                label:
+                    <div>
+                        <h4>{user.name}</h4>
+                        <p>{user.email}</p>
+                    </div>,
+                key: user._id
+            }
+        ));
+    }
+    // Create the menu
+    const items =
+
+        filteredUser.length > 0 ? (
+            createMenuItems(filteredUser)
+        ) : (
+            [{
+                label: 'No Users!',
+                key: '00',
+                disabled: true
+            }]
+        )
+
+
+
+
+    const onSearch: SearchProps['onSearch'] = async (value: string) => {
+
+        const filter = users?.filter((user: any) => (((user.email.includes(value)) || (user.name.includes(value))) && user._id != session?.user.id))
+        setFilteredUser(filter)
+        console.log(filteredUser)
+    };
+
+
     return (
         <div className={` overflow-scroll scrollbar-hide pr-2 sm:w-80 h-screen min-w-80 ${mode ? 'bg-[#121212] text-white' : 'bg-[#FFFFFF] text-black'}`}>
 
-            <header className={` sm:w-80 min-w-80 w-full fixed  ${mode ? 'bg-[#121212] text-white' : 'bg-[#FFFFFF] text-black'} z-50 `}>
+            <header className={` sm:w-80 min-w-80 w-full fixed  dark:bg-[#121212] dark:text-white bg-[#FFFFFF] text-black z-50 `}>
                 <div className='flex justify-between'>
                     <div className='flex'>
                         <Image src='/icon.png' width={35} height={10} alt='Logo' className='m-2'></Image>
@@ -100,10 +154,11 @@ export default function ChatMenu() {
 
                     </div>
                 </div>
-                <div className='flex justify-end'>
-                    <SearchOutlined style={{ fontSize: '24px', color: mode ? '#ABAFB1' : '#ABAFB1' }} className='p-2' />
-                    <input type='search' className={` sm:w-72 w-full p-2 m-2 border ${mode ? 'border-[#ABAFB1] bg-[#121212]' : 'border-[#ABAFB1] bg-[#FFFFFF]'} rounded-xl outline-none`} />
-                </div>
+                <Dropdown menu={{ items }} trigger={['hover']}>
+                    <div className='flex justify-end'>
+                        <Search placeholder="Enter User E-mail" onChange={(e) => onSearch(e.target.value)} className={` sm:w-72 w-full p-2 m-2 border  rounded-xl outline-none`} />
+                    </div>
+                </Dropdown>
             </header>
             <main className=' mt-32 '>
                 {chats.length > 0 &&
@@ -126,7 +181,7 @@ export default function ChatMenu() {
 
                                     dispatch(changeChat(chat.userID))
                                 }
-                                } className={`flex items-center p-2 w-full ${mode?'hover:bg-gray-800':'hover:bg-blue-200'}  border-b-gray-300 m-2 min-w-72 `} >
+                                } className={`flex items-center p-2 w-full ${mode ? 'hover:bg-gray-800' : 'hover:bg-blue-200'}  border-b-gray-300 m-2 min-w-72 `} >
 
                                     <Avatar style={{ backgroundColor: '#D9D9D9' }} src={chat.image && <img src={chat.image} />} alt={chat.user[0].toUpperCase()} size={50} />
                                     <div className='ml-2  w-full sm:w-80 '>
@@ -136,7 +191,7 @@ export default function ChatMenu() {
                                             <p className='text-xs text-gray-500   p-1 mx-3 '>{getDateOrDay(chat.timestamp)}</p>
                                         </div>
                                         <div className={'flex flex-row justify-start'}>
-                                            {chat.status != 'recived' && <div className={`p-1 `}>{chat.status === 'sent' ? <MdDone color="gray" /> : chat.status === 'delivered' ? <MdDoneAll color="gray" /> : chat.status === 'read' ? <MdDoneAll color="blue" /> : ""}</div>}
+
                                             <p className={`text-sm   line-clamp-1 pr-3 ${mode ? 'text-[#A0A0A0]' : 'text-[#A0A0A0]'}`}>{chat.lastMessage}</p>
                                         </div>
                                     </div>
