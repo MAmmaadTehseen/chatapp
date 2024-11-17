@@ -103,7 +103,6 @@ export default function ChatMenu() {
             },
         })
         const data = await req.json();
-        console.log(data)
         setChats(data)
     }
     useEffect(() => {
@@ -112,7 +111,6 @@ export default function ChatMenu() {
 
     }, [])
     async function createChat(id: string) {
-        console.log('id', id)
         const req = await fetch(`/api/chat/create`, {
             method: 'POST',
 
@@ -159,9 +157,9 @@ export default function ChatMenu() {
 
 
     return (
-        <div className={` overflow-scroll scrollbar-hide  sm:w-80 h-screen min-w-80 ${mode ? 'bg-[#121212] text-white' : 'bg-[#FFFFFF] text-black'}`}>
+        <div className={` overflow-scroll scrollbar-hide sm:w-80 h-screen min-w-80 ${mode ? 'bg-[#121212] text-white' : 'bg-[#FFFFFF] text-black'}`}>
 
-            <header className={` sm:w-80 min-w-80 w-full fixed  dark:bg-[#121212] dark:text-white bg-[#FFFFFF] text-black z-50 `}>
+            <header className={` sm:w-80 min-w-80 right-0 left-10  fixed  dark:bg-[#121212] dark:text-white bg-[#FFFFFF] text-black z-50 `}>
                 <div className='flex justify-between'>
                     <div className='flex'>
                         <Image src='/icon.png' width={35} height={10} alt='Logo' className='m-2'></Image>
@@ -186,7 +184,6 @@ export default function ChatMenu() {
                 {Chats.length > 0 &&
                     Chats.sort((a: any, b: any) => new Date(b.chat.updatedAt).getTime() - new Date(a.chat.updatedAt).getTime()).map((chat: any) => {
                         const num = '#' + Math.floor(Math.random() * 16777216).toString(16).padStart(6, '0');
-                        console.log(num)
                         const getDateOrDay = (timestamp: string) => {
                             const now = new Date(timestamp);
                             const hours = new Date().getTime() - now.getTime();
@@ -204,14 +201,14 @@ export default function ChatMenu() {
 
                                     dispatch(changeChat(chat.chat.chatID))
                                 }
-                                } className={`flex items-center p-2 w-screen ${mode ? 'hover:bg-gray-800' : 'hover:bg-blue-200'}  border-b-gray-300 m-2 min-w-72 `} >
+                                } className={`flex items-center p-2 w-screen ${mode ? 'hover:bg-gray-800' : 'hover:bg-blue-200'}  border-b-gray-300 m-2 min-w-64 `} >
 
-                                    <Avatar style={{ backgroundColor: `${num}` }} src={chat.users.image && <img src={chat.users.image} />} alt={chat.users.name[0].toUpperCase()} size={50} >{chat.users.name[0].toUpperCase()} </Avatar>
+                                    <Avatar style={{ backgroundColor: '#0002aa' }} src={chat.users.image && <Image src={chat.users.image} alt='DP' />} alt={chat.users.name[0].toUpperCase()} size={50} >{chat.users.name[0].toUpperCase()} </Avatar>
                                     <div className='ml-2  w-full sm:w-80 '>
                                         <div className='flex  justify-between '>
                                             <h2 className='text-sm   font-bold'>{chat.users.name}</h2>
 
-                                            <p className='text-xs text-gray-500   p-1 mx-3 '>{getDateOrDay(chat.chat.updatedAt)}</p>
+                                            <p className='text-xs text-gray-500   p-1 mx-3 mr-20 '>{getDateOrDay(chat.chat.updatedAt)}</p>
                                         </div>
                                         <div className={'flex flex-row justify-start'}>
                                             {chat?.lastMessage.text &&

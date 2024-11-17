@@ -9,7 +9,6 @@ export async function GET(req,context) {
         await connectDB();
         const id =  context.params.id
         const chatFound = await Chat.findOne({_id:id});
-        // console.log(chatFound)
         return NextResponse.json({chatFound})
 
     } catch (e) {

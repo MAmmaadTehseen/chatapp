@@ -10,7 +10,6 @@ export default withAuth(
     } = req;
 
     if (pathname.startsWith("/login") && token) {
-      console.log('login')
       return NextResponse.redirect(new URL("/", req.url));
     }
 

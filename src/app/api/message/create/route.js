@@ -7,11 +7,9 @@ export async function POST(req) {
         connectDB()
         let reqData = await req.json()
         let createMessage = await Message.create({ chatId: reqData.chatId,text:reqData.text,reciver:reqData.reciver,sender:reqData.sender,status:reqData.status })
-        console.log('wait')
         return NextResponse.json(createMessage)
     }
     catch (error) {
-        console.log(error)
         return NextResponse.json('error')
     }
 

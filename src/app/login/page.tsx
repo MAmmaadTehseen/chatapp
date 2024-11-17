@@ -15,7 +15,6 @@ const Login: React.FC = () => {
   const { status } = useSession();
 
   const router = useRouter()
-  console.log(status)
   if (status === "loading") {
     return (
       <Loading />
@@ -42,7 +41,6 @@ const Login: React.FC = () => {
       if (res?.error) {
         setError('Wrong Credentails');
         setLoading(false)
-        console.log(error)
       }
       if (res?.ok) {
         return router.push('/')

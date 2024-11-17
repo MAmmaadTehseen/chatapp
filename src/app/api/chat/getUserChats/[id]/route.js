@@ -70,8 +70,6 @@ export async function GET(req, context) {
             },
 
         ])
-        // const chat = chatFound.filter((chat) =>chat.users[0]._id.toString()==id||chat.users[1]._id.toString()==id  )
-        // console.log(chat)
         return NextResponse.json(chatFound)
 
     } catch (e) {

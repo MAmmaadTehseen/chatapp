@@ -9,7 +9,6 @@ export async function GET(req,context) {
     try {
         await connectDB();
         const MessageFound = await Message.find({chatId:id});
-        // console.log(userFound)
         return NextResponse.json({MessageFound})
 
     } catch (e) {

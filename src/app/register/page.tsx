@@ -18,8 +18,6 @@ export default function Register() {
     setError('');
     const regexMobile = /^(?:\+92|0)?3\d{2}[-\s]?\d{7}$/; // Pakistan mobile number regex
     const { name, email, password, confirmPassword, phone } = values;
-    console.log(regexMobile.test(phone))
-    console.log(phone)
     if (password.length < 4) {
       message.error('Password must be at least 4 characters long');
       return;

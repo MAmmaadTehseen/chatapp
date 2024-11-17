@@ -8,7 +8,6 @@ export async function GET() {
     try {
         await connectDB();
         const chatFound = await Chat.find();
-        // console.log(userFound)
         return NextResponse.json(chatFound)
 
     } catch (e) {

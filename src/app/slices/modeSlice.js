@@ -8,7 +8,6 @@ const modeSlice = createSlice({
   reducers: {
     changeMode: (state, action) => {
       state.value = !(action.payload);
-      console.log('state', state.value)
       if (state.value == true) {
         document.documentElement.classList.add('dark');
       }

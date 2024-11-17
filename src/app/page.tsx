@@ -14,7 +14,6 @@ export default function Home() {
   const { status } = useSession();
   const router = useRouter();
 
-  // console.log(chat)
   useEffect(() => {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     // setDarkMode(prefersDark);

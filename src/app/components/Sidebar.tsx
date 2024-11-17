@@ -26,7 +26,6 @@ const Sidebar: React.FC = () => {
     const { status } = useSession();
     const mode = useSelector((state: any) => state.mode.value);
 
-console.log(mode)
     const dispatch = useDispatch();
     const pathname = usePathname();
     const searchParams = useSearchParams()
@@ -51,7 +50,6 @@ console.log(mode)
     }, [pathname])
     useEffect(() => {
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        console.log('mode',prefersDark);
         if (prefersDark) {
           dispatch(changeMode(false))
         }
@@ -72,13 +70,11 @@ console.log(mode)
         {
             key: '2', icon: <PhoneOutlined />, label: 'Calls', onClick: () => {
                 router.push("/call")
-                console.log(pathname)
             }
         },
         {
             key: '3', icon: <ContainerOutlined />, label: 'Status', onClick: () => {
                 router.push("/status")
-                console.log(pathname)
             }
         },
 
@@ -89,7 +85,6 @@ console.log(mode)
         {
             key: '4', icon: <Switch size='small' value={mode} />, label: mode?'Light Mode':'Dark Mode', onClick: () => {
                 // router.push("/setting")
-                console.log('dark mode switch')
                 dispatch(changeMode(mode))
             }
         },

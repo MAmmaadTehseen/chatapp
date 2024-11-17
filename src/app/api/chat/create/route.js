@@ -10,7 +10,6 @@ export async function POST(req) {
 
         const findChat = (Chats.filter((chat) => chat.users.some(items => items.toString() === reqData.users[0]) && chat.users.some(items => items.toString() === reqData.users[1])))
         // check if chat already exists
-        console.log(findChat.length > 0)
         if (findChat.length > 0) {
 
             return NextResponse.json({ error: "chat already exists" }, { status: 400 })
@@ -19,7 +18,6 @@ export async function POST(req) {
         return NextResponse.json(createChat)
     }
     catch (error) {
-        console.log(error)
         return NextResponse.json(error)
     }
 

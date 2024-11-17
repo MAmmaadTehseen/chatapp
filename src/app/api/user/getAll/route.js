@@ -8,7 +8,6 @@ export async function GET() {
     try {
         await connectDB();
         const userFound = await User.find();
-        // console.log(userFound)
         return NextResponse.json(userFound)
 
     } catch (e) {

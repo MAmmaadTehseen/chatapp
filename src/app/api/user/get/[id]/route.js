@@ -9,7 +9,6 @@ export async function GET(req,context) {
         await connectDB();
         const id =  context.params.id
         const userFound = await User.findOne({_id:id});
-        // console.log(userFound)
         return NextResponse.json({userFound})
 
     } catch (e) {
