@@ -107,7 +107,7 @@ export default function ChatMenu() {
     }
     useEffect( () => {
         getAllUsers()
-        getAllChats(
+        getAllChats()
 
     }, [])
     async function createChat(id: string) {
