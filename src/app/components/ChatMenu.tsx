@@ -105,9 +105,9 @@ export default function ChatMenu() {
         const data = await req.json();
         setChats(data)
     }
-    useEffect(() => {
+    useEffect( () => {
         getAllUsers()
-        getAllChats()
+        getAllChats(
 
     }, [])
     async function createChat(id: string) {
@@ -117,7 +117,8 @@ export default function ChatMenu() {
             body: JSON.stringify({ users: [session?.user.id, id] })
         })
         dispatch(changeChat(id))
-        getAllChats()
+        await getAllChats()
+
     }
     // Function to create menu items based on users
     const createMenuItems = (filteredUser: any) => {
